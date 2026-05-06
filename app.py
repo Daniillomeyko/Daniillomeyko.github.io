@@ -106,8 +106,10 @@ app.config["CSP_REPORT_ONLY"] = os.environ.get("CSP_REPORT_ONLY", "true").strip(
 app.config["CSP_REPORT_URI"] = os.environ.get("CSP_REPORT_URI", "").strip()
 app.config["ADMIN_LOGIN_RATE_LIMIT_COUNT"] = int(os.environ.get("ADMIN_LOGIN_RATE_LIMIT_COUNT", 12))
 app.config["ADMIN_LOGIN_RATE_LIMIT_WINDOW"] = int(os.environ.get("ADMIN_LOGIN_RATE_LIMIT_WINDOW", 300))
-app.config["CONTACTS_RATE_LIMIT_COUNT"] = int(os.environ.get("CONTACTS_RATE_LIMIT_COUNT", 5))
+app.config["CONTACTS_RATE_LIMIT_COUNT"] = int(os.environ.get("CONTACTS_RATE_LIMIT_COUNT", 3))
 app.config["CONTACTS_RATE_LIMIT_WINDOW"] = int(os.environ.get("CONTACTS_RATE_LIMIT_WINDOW", 600))
+app.config["ADMIN_MAX_LOGIN_ATTEMPTS"] = int(os.environ.get("ADMIN_MAX_LOGIN_ATTEMPTS", 4))
+app.config["ADMIN_LOGIN_BLOCK_MINUTES"] = int(os.environ.get("ADMIN_LOGIN_BLOCK_MINUTES", 30))
 
 # Email настройки для Flask-Mail
 app.config["MAIL_SERVER"] = os.environ.get("MAIL_SERVER", "smtp.mail.ru")
@@ -159,10 +161,8 @@ if app.config["SENTRY_DSN"]:
 # Инициализация базы данных
 db = SQLAlchemy(app)
 
-# Простое ограничение попыток входа
+# Ограничение попыток входа
 LOGIN_ATTEMPTS = {}
-MAX_LOGIN_ATTEMPTS = 5
-LOGIN_BLOCK_MINUTES = 15
 RATE_LIMIT_BUCKETS = {}
 EMAIL_PATTERN = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
@@ -699,8 +699,8 @@ def admin_login():
             return render_template("admin_login.html")
 
         attempt_data["count"] = attempt_data.get("count", 0) + 1
-        if attempt_data["count"] >= MAX_LOGIN_ATTEMPTS:
-            attempt_data["blocked_until"] = now + timedelta(minutes=LOGIN_BLOCK_MINUTES)
+        if attempt_data["count"] >= app.config["ADMIN_MAX_LOGIN_ATTEMPTS"]:
+            attempt_data["blocked_until"] = now + timedelta(minutes=app.config["ADMIN_LOGIN_BLOCK_MINUTES"])
             attempt_data["count"] = 0
         LOGIN_ATTEMPTS[ip] = attempt_data
         flash("Неверный пароль", "error")
