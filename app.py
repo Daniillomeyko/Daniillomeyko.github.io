@@ -295,6 +295,8 @@ def load_articles():
             data = json.load(file)
         if isinstance(data, list):
             for item in data:
+                item.setdefault("seo_title", item.get("title", ""))
+                item.setdefault("seo_description", item.get("excerpt", ""))
                 image_url = (item or {}).get("image_url", "")
                 if not image_url:
                     continue
@@ -590,15 +592,19 @@ def sitemap():
             "</url>"
         )
 
-    for article in get_ordered_articles():
+    ordered_articles = get_ordered_articles()
+    total_articles = max(len(ordered_articles), 1)
+    for idx, article in enumerate(ordered_articles):
         absolute_url = escape(f"{base_url}/news/{article['slug']}")
         lastmod = get_article_lastmod(article)
+        # Slightly prioritize fresher content in the feed.
+        priority = max(0.60, 0.85 - (idx / total_articles) * 0.20)
         items.append(
             "<url>"
             f"<loc>{absolute_url}</loc>"
             f"<lastmod>{lastmod}</lastmod>"
             "<changefreq>monthly</changefreq>"
-            "<priority>0.8</priority>"
+            f"<priority>{priority:.2f}</priority>"
             "</url>"
         )
     xml = (
