@@ -2,6 +2,7 @@
 
 {% block title %}{{ article.title }} - {{ config.COMPANY_NAME }}{% endblock %}
 {% block meta_description %}{{ article.excerpt }}{% endblock %}
+{% block meta_keywords %}{{ article.title }}, обслуживание лифтов, эксплуатация лифтов, ремонт лифтов, безопасность лифтов, {{ article.category|lower }}{% endblock %}
 {% block og_title %}{{ article.title }}{% endblock %}
 {% block og_description %}{{ article.excerpt }}{% endblock %}
 {% block og_image %}{{ abs_url(article.image_url) if article.image_url else "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80" }}{% endblock %}
