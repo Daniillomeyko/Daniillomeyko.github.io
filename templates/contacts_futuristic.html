@@ -1,0 +1,111 @@
+{% extends "base_futuristic.html" %}
+
+{% block title %}Контакты — {{ config.COMPANY_NAME }}{% endblock %}
+{% block meta_description %}Контакты {{ config.COMPANY_NAME }}: форма заявки на обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}
+{% block og_title %}Контакты {{ config.COMPANY_NAME }}{% endblock %}
+{% block og_description %}Оставьте заявку на обслуживание и ремонт лифтов. Ответим в рабочее время и согласуем дальнейшие действия.{% endblock %}
+{% block twitter_title %}Контакты {{ config.COMPANY_NAME }}{% endblock %}
+{% block twitter_description %}Заявки на обслуживание и ремонт лифтов в Санкт-Петербурге и Ленинградской области.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contacts.css', v='safari-icons-1') }}">
+{% endblock %}
+
+{% block content %}
+<section class="section section-futuristic-contacts">
+    <div class="container">
+        <span class="badge"><i class="fa-solid fa-headset"></i> Контакты</span>
+        <h1 class="section-title section-title-spaced">Оперативная связь с инженерной службой</h1>
+        <p class="section-subtitle">Оставьте заявку — ответим в рабочее время и предложим оптимальный формат обслуживания.</p>
+
+        <div class="contact-layout">
+            <aside class="contact-futuristic-aside reveal" aria-label="Адрес и реквизиты">
+                <div class="contact-spec-wrap contact-spec-wrap--embedded">
+                    <div class="contact-spec-panel">
+                        <header class="contact-spec-panel__head">
+                            <p class="contact-spec-panel__eyebrow">Офис</p>
+                            <h2 class="contact-spec-panel__title">Санкт-Петербург</h2>
+                        </header>
+                        <div class="contact-spec-panel__body">
+                            <article class="contact-spec-block contact-spec-block--address">
+                                <div class="contact-spec-block__icon" aria-hidden="true">
+                                    <i class="fas fa-location-dot"></i>
+                                </div>
+                                <div class="contact-spec-block__main">
+                                    <h3 class="contact-spec-block__label">Юридический и почтовый адрес</h3>
+                                    <p class="contact-spec-block__text">{{ config.COMPANY_ADDRESS|replace(', ', ',<br>')|safe }}</p>
+                                </div>
+                            </article>
+                            <div class="contact-spec-split">
+                                <article class="contact-spec-block contact-spec-block--tight">
+                                    <div class="contact-spec-block__icon contact-spec-block__icon--sm" aria-hidden="true">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                    <div class="contact-spec-block__main">
+                                        <h3 class="contact-spec-block__label">Часы приёма</h3>
+                                        <p class="contact-spec-block__text">{{ config.COMPANY_WORK_HOURS }}</p>
+                                    </div>
+                                </article>
+                                <article class="contact-spec-block contact-spec-block--tight">
+                                    <div class="contact-spec-block__icon contact-spec-block__icon--sm" aria-hidden="true">
+                                        <i class="fas fa-fingerprint"></i>
+                                    </div>
+                                    <div class="contact-spec-block__main">
+                                        <h3 class="contact-spec-block__label">Реквизиты</h3>
+                                        <dl class="contact-spec-reg">
+                                            <div class="contact-spec-reg__row">
+                                                <dt>ИНН</dt>
+                                                <dd><span class="contact-spec-code">{{ config.COMPANY_INN }}</span></dd>
+                                            </div>
+                                            <div class="contact-spec-reg__row">
+                                                <dt>ОГРН</dt>
+                                                <dd><span class="contact-spec-code">{{ config.COMPANY_OGRN }}</span></dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="card form-card reveal">
+                <h3>Форма обращения</h3>
+                <form method="POST" action="/contacts">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                    <div>
+                        <label for="name">Ваше имя *</label>
+                        <input id="name" type="text" name="name" required minlength="2" maxlength="80">
+                    </div>
+
+                    <div>
+                        <label for="email">Email *</label>
+                        <input id="email" type="email" name="email" required maxlength="120">
+                    </div>
+
+                    <div>
+                        <label for="phone">Телефон</label>
+                        <input id="phone" type="tel" name="phone" maxlength="25">
+                    </div>
+
+                    <div>
+                        <label for="message">Сообщение *</label>
+                        <textarea id="message" name="message" required minlength="10" maxlength="4000"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Отправить сообщение</button>
+                </form>
+
+                {% if success %}
+                <div class="card form-success-note">
+                    <strong>Спасибо!</strong>
+                    <p>Заявка отправлена. Мы свяжемся с вами в ближайшее время.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

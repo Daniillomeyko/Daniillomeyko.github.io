@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+
+{% block title %}Услуги - {{ config.COMPANY_NAME }} | Профессиональное обслуживание лифтов{% endblock %}
+{% block meta_description %}Услуги ООО "ЭТАЖИ": ремонт лифтов, плановое ТО, модернизация и аварийный выезд по лифтам на нашем обслуживании. Надежные решения для жилых и коммерческих объектов.{% endblock %}
+{% block og_title %}Услуги {{ config.COMPANY_NAME }} — ремонт и ТО лифтов{% endblock %}
+{% block og_description %}Комплексное обслуживание лифтового оборудования в Санкт-Петербурге и Ленинградской области: диагностика, профилактика, модернизация и аварийный выезд по лифтам на обслуживании.{% endblock %}
+{% block twitter_title %}Услуги {{ config.COMPANY_NAME }}{% endblock %}
+{% block twitter_description %}Ремонт, техническое обслуживание и модернизация лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/services.css', v='hero-theme-clean-1') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero секция -->
+<section class="services-hero">
+    <div class="container">
+        <h1 class="hero-main-title">
+            Что мы делаем для ваших лифтов
+        </h1>
+        <p class="hero-lead">
+            Техническое обслуживание и ремонт лифтового оборудования в установленном порядке
+        </p>
+    </div>
+</section>
+
+<!-- Как мы работаем -->
+<section class="section-shell section-shell-white services-process-section">
+    <div class="container">
+        <div class="process-grid">
+            <div class="glass-card ui-card process-card">
+                <h3 class="ui-card-title">1. Заявка</h3>
+                <p class="ui-muted">Принимаем обращение, уточняем тип оборудования и срочность.</p>
+            </div>
+            <div class="glass-card ui-card process-card">
+                <h3 class="ui-card-title">2. Диагностика</h3>
+                <p class="ui-muted">Проводим осмотр, фиксируем дефекты и согласуем объем работ.</p>
+            </div>
+            <div class="glass-card ui-card process-card">
+                <h3 class="ui-card-title">3. Исполнение</h3>
+                <p class="ui-muted">Выполняем работы, тестируем лифт и передаем отчет.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Список услуг -->
+<section class="section-services-list">
+    <div class="container">
+        <div class="animate-on-scroll service-detail">
+            <div class="service-detail-content">
+                <div class="service-head">
+                    <div class="service-icon primary">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <div>
+                        <h2 class="service-title">Ремонт лифтов</h2>
+                        <p class="service-subtitle primary">Любая сложность • Срок диагностики определяется по заявке</p>
+                    </div>
+                </div>
+                <p class="service-text">
+                    Профессиональная диагностика и устранение неисправностей любой сложности. Наши инженеры 
+                    обладают экспертизой для работы с оборудованием Могилевлифтмаш, ЩЛЗ, KONE, OTIS и других 
+                    ведущих производителей.
+                </p>
+                <ul class="service-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Полная диагностика систем лифта</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Замена изношенных деталей и узлов</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Настройка и калибровка систем</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Тестирование после ремонта</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="service-detail-stat primary">
+                <div class="stat-value">2-4</div>
+                <div class="stat-label">часа</div>
+                <div class="stat-box">
+                    <div class="stat-box-title">Среднее время ремонта</div>
+                    <div class="stat-box-note">в зависимости от сложности</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-on-scroll service-detail">
+            <div class="service-detail-content">
+                <div class="service-head">
+                    <div class="service-icon secondary">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <div>
+                        <h2 class="service-title">Плановое техническое обслуживание</h2>
+                        <p class="service-subtitle secondary">По графику • Профилактика • Документация</p>
+                    </div>
+                </div>
+                <p class="service-text">
+                    Регулярное техническое обслуживание — ключ к бесперебойной работе лифта. Мы проводим 
+                    плановые проверки, смазку механизмов, настройку систем безопасности и замену изношенных 
+                    деталей до возникновения проблем.
+                </p>
+                <ul class="service-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Ежемесячные инспекции оборудования</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Смазка и регулировка механизмов</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Проверка систем безопасности</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Ведение Паспорта лифта</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="service-detail-stat secondary">
+                <div class="stat-value">12</div>
+                <div class="stat-label">месяцев</div>
+                <div class="stat-box">
+                    <div class="stat-box-title">Гарантия на работы</div>
+                    <div class="stat-box-note">полное покрытие</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-on-scroll service-detail">
+            <div class="service-detail-content">
+                <div class="service-head">
+                    <div class="service-icon indigo">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div>
+                        <h2 class="service-title">Модернизация оборудования</h2>
+                        <p class="service-subtitle indigo">Обновление узлов • Снижение затрат • Комфорт</p>
+                    </div>
+                </div>
+                <p class="service-text">
+                    Обновление устаревшего лифтового оборудования на современные энергоэффективные системы. 
+                    Установка частотных преобразователей, обновление кабин, диспетчерских систем и пультов управления.
+                </p>
+                <ul class="service-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Замена устаревших систем управления</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Установка частотных преобразователей</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Обновление дизайна кабин</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Экономия энергии</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="service-detail-stat indigo">
+                <div class="stat-value">⚡</div>
+                <div class="stat-label">Экономия</div>
+                <div class="stat-box">
+                    <div class="stat-box-title">Экономия энергии</div>
+                    <div class="stat-box-note">после модернизации</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="animate-on-scroll service-detail">
+            <div class="service-detail-content">
+                <div class="service-head">
+                    <div class="service-icon rose">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                        <h2 class="service-title">Аварийный выезд</h2>
+                        <p class="service-subtitle rose">Круглосуточно • Оперативный выезд</p>
+                    </div>
+                </div>
+                <p class="service-text">
+                    Экстренная помощь по лифтам, находящимся на нашем техническом обслуживании. 
+                    Освобождение пассажиров, устранение аварийных ситуаций и восстановление работоспособности оборудования.
+                </p>
+                <ul class="service-list">
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Освобождение пассажиров из лифта</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Устранение аварийных ситуаций</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Восстановление работы лифта</span>
+                    </li>
+                    <li>
+                        <i class="fas fa-check-circle"></i>
+                        <span>Выезд выполняется по лифтам на нашем обслуживании</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="service-detail-stat rose">
+                <div class="stat-value">25</div>
+                <div class="stat-label">минут</div>
+                <div class="stat-box">
+                    <div class="stat-box-title">Ориентировочное время выезда</div>
+                    <div class="stat-box-note">зависит от адреса и дорожной обстановки</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="ui-card animate-on-scroll services-benefits-card">
+            <h3 class="ui-card-title services-benefits-title">Что получает заказчик по договору</h3>
+            <div class="grid-auto-3 services-benefits-grid">
+                <div>
+                    <h4 class="services-mini-title">Сроки реагирования и выполнения</h4>
+                    <p class="ui-muted">Сроки выезда и проведения работ фиксируются в договоре и соблюдаются в рабочем порядке.</p>
+                </div>
+                <div>
+                    <h4 class="services-mini-title">Отчетные документы</h4>
+                    <p class="ui-muted">Предоставляются акты выполненных работ, сведения о проведенных заменах и информация по обращениям.</p>
+                </div>
+                <div>
+                    <h4 class="services-mini-title">Планово-предупредительный подход</h4>
+                    <p class="ui-muted">Планирование обслуживания направлено на снижение риска отказов и поддержание исправного состояния оборудования.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="service-detail-cta">
+            <a href="/contacts" class="btn services-primary-btn">
+                <i class="fas fa-paper-plane"></i> Получить расчет и план работ
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- CTA секция -->
+<section class="services-cta">
+    <div class="container">
+        <h2 class="services-cta-title">
+            Нужна консультация специалиста?
+        </h2>
+        <p class="services-cta-text">
+            Оставьте заявку и получите консультацию инженера, ориентировочный план работ и сроки выполнения
+        </p>
+        <a href="/contacts" class="btn services-secondary-btn">
+            <i class="fas fa-comments"></i> Связаться с нами
+        </a>
+    </div>
+</section>
+{% endblock %}

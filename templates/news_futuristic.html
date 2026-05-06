@@ -1,0 +1,28 @@
+{% extends "base_futuristic.html" %}
+
+{% block title %}Новости — {{ config.COMPANY_NAME }}{% endblock %}
+{% block meta_description %}Колонка статей {{ config.COMPANY_NAME }} по обслуживанию и эксплуатации лифтового оборудования.{% endblock %}
+
+{% block content %}
+<section class="section section-top-spaced">
+    <div class="container">
+        <span class="badge"><i class="fa-solid fa-newspaper"></i> Колонка статей</span>
+        <h1 class="section-title section-title-spaced">Практические материалы</h1>
+        <p class="section-subtitle">Обслуживание, эксплуатация и модернизация лифтового оборудования для управляющих компаний и ТСЖ.</p>
+        <div class="grid-3">
+            {% for article in articles %}
+            <a href="{{ url_for('news_article', slug=article.slug) }}" class="futuristic-news-card-link reveal">
+            <article class="card">
+                <h3>{{ article.title }}</h3>
+                <p>{{ article.excerpt }}</p>
+                <p class="section-subtitle"><i class="fa-solid fa-calendar-days"></i> {{ article.published_at }}</p>
+                <div class="actions">
+                    <span class="btn">Читать</span>
+                </div>
+            </article>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

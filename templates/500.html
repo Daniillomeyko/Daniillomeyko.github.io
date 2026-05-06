@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Ошибка сервера — {{ config.COMPANY_NAME }}{% endblock %}
+{% block meta_robots %}noindex,nofollow{% endblock %}
+
+{% block content %}
+<section class="section-shell section-shell-white" style="padding: 120px 0 80px;">
+    <div class="container" style="text-align: center; max-width: 780px;">
+        <h1 style="font-size: 48px; margin-bottom: 14px;">500</h1>
+        <p style="font-size: 20px; color: #5a637d; margin-bottom: 28px;">
+            Внутренняя ошибка сервера. Мы уже работаем над устранением.
+        </p>
+        <div class="cta-buttons" style="justify-content: center;">
+            <a href="/" class="btn hero-btn-primary"><i class="fas fa-rotate"></i> Обновить страницу</a>
+            <a href="/contacts" class="btn hero-btn-secondary"><i class="fas fa-envelope"></i> Сообщить нам</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

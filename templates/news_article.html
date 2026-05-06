@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - {{ config.COMPANY_NAME }}{% endblock %}
+{% block meta_description %}{{ article.excerpt }}{% endblock %}
+{% block og_title %}{{ article.title }}{% endblock %}
+{% block og_description %}{{ article.excerpt }}{% endblock %}
+{% block og_image %}{{ abs_url(article.image_url) if article.image_url else "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80" }}{% endblock %}
+{% block twitter_title %}{{ article.title }}{% endblock %}
+{% block twitter_description %}{{ article.excerpt }}{% endblock %}
+{% block twitter_image %}{{ abs_url(article.image_url) if article.image_url else "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80" }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/news.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="reading-progress" id="readingProgress"></div>
+<section class="news-hero">
+    <div class="container">
+        <div class="news-hero-meta">
+            <span class="news-chip"><i class="fas fa-tag"></i> {{ article.category }}</span>
+            <span class="news-chip"><i class="fas fa-calendar-alt"></i> {{ article.published_at }}</span>
+        </div>
+        <h1 class="hero-main-title">{{ article.title }}</h1>
+        <p class="hero-lead">{{ article.excerpt }}</p>
+        <div class="news-hero-cover news-theme-{{ article.category|lower|replace(' ', '-') }} {% if article.image_url %}has-image{% endif %}">
+            {% if article.image_url %}
+            <img src="{{ article.image_url }}" alt="{{ article.title }}" class="news-hero-image" decoding="async" fetchpriority="high" onerror="this.closest('.news-hero-cover').classList.add('is-image-broken'); this.remove();">
+                {% set category_key = article.category|lower %}
+                {% if "безопас" in category_key %}
+                <i class="fas fa-shield-alt"></i>
+                {% elif "эксплуата" in category_key %}
+                <i class="fas fa-cogs"></i>
+                {% elif "документ" in category_key %}
+                <i class="fas fa-file-contract"></i>
+                {% else %}
+                <i class="fas fa-book-open"></i>
+                {% endif %}
+            {% else %}
+                {% set category_key = article.category|lower %}
+                {% if "безопас" in category_key %}
+                <i class="fas fa-shield-alt"></i>
+                {% elif "эксплуата" in category_key %}
+                <i class="fas fa-cogs"></i>
+                {% elif "документ" in category_key %}
+                <i class="fas fa-file-contract"></i>
+                {% else %}
+                <i class="fas fa-book-open"></i>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="news-article-section">
+    <div class="container news-layout">
+        <article class="news-article-wrap ui-card">
+            {% for block in article.content %}
+            {% if block.startswith("## ") %}
+            <h2 class="news-subtitle" id="section-{{ loop.index }}">{{ block[3:] }}</h2>
+            {% elif block.startswith("### ") %}
+            <h3 class="news-subsubtitle">{{ block[4:] }}</h3>
+            {% elif block.startswith("- ") %}
+            <p class="news-bullet"><i class="fas fa-check-circle"></i><span>{{ block[2:] }}</span></p>
+            {% else %}
+            <p class="{% if loop.first %}news-lead{% else %}news-paragraph{% endif %}">{{ block }}</p>
+            {% endif %}
+            {% endfor %}
+            <a class="news-back-link" href="{{ url_for('news') }}"><i class="fas fa-arrow-left"></i> Ко всем статьям</a>
+        </article>
+
+        <aside class="news-sidebar">
+            <div class="news-side-card">
+                <h3>Поделиться</h3>
+                <div class="news-share-row">
+                    <a href="https://t.me/share/url?url={{ request.url|urlencode }}&text={{ article.title|urlencode }}" target="_blank" rel="noopener" class="news-share-btn" aria-label="Поделиться в Telegram"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="https://vk.com/share.php?url={{ request.url|urlencode }}" target="_blank" rel="noopener" class="news-share-btn" aria-label="Поделиться во ВКонтакте"><i class="fab fa-vk"></i></a>
+                    <button type="button" class="news-share-btn" id="copyArticleLink" title="Скопировать ссылку" aria-label="Скопировать ссылку на статью"><i class="fas fa-link"></i></button>
+                </div>
+                <p class="news-side-note" id="copyArticleMessage">Отправьте материал коллегам и заказчикам.</p>
+            </div>
+
+            <div class="news-side-card">
+                <h3>Нужна консультация по объекту?</h3>
+                <p class="news-side-note">Подготовим краткий план работ и рекомендации по обслуживанию вашего лифтового оборудования.</p>
+                <a href="/contacts" class="news-side-cta">Оставить заявку</a>
+            </div>
+        </aside>
+    </div>
+</section>
+
+{% if related_articles %}
+<section class="news-list-section related-news-section">
+    <div class="container">
+        <h2 class="related-news-title">Похожие статьи</h2>
+        <div class="news-grid">
+            {% for related in related_articles %}
+            <a href="{{ url_for('news_article', slug=related.slug) }}" class="news-card-link animate-on-scroll">
+                <article class="news-card ui-card news-theme-{{ related.category|lower|replace(' ', '-') }}">
+                    <div class="news-card-cover">
+                        {% if related.image_url %}
+                        <img src="{{ related.image_url }}" alt="{{ related.title }}" class="news-cover-image" loading="lazy" decoding="async" onerror="this.closest('.news-card-cover').classList.add('is-image-broken'); this.remove();">
+                            {% set category_key = related.category|lower %}
+                            {% if "безопас" in category_key %}
+                            <i class="fas fa-shield-alt"></i>
+                            {% elif "эксплуата" in category_key %}
+                            <i class="fas fa-cogs"></i>
+                            {% elif "документ" in category_key %}
+                            <i class="fas fa-file-contract"></i>
+                            {% else %}
+                            <i class="fas fa-file-alt"></i>
+                            {% endif %}
+                        {% else %}
+                            {% set category_key = related.category|lower %}
+                            {% if "безопас" in category_key %}
+                            <i class="fas fa-shield-alt"></i>
+                            {% elif "эксплуата" in category_key %}
+                            <i class="fas fa-cogs"></i>
+                            {% elif "документ" in category_key %}
+                            <i class="fas fa-file-contract"></i>
+                            {% else %}
+                            <i class="fas fa-file-alt"></i>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="news-meta">
+                        <span><i class="fas fa-calendar-alt"></i> {{ related.published_at }}</span>
+                        <span><i class="fas fa-tag"></i> {{ related.category }}</span>
+                    </div>
+                    <h3 class="news-title">{{ related.title }}</h3>
+                    <p class="news-excerpt">{{ related.excerpt }}</p>
+                    <span class="news-link">Читать статью <i class="fas fa-arrow-right"></i></span>
+                </article>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ article.title|tojson }},
+  "description": {{ article.excerpt|tojson }},
+  "datePublished": "{{ article.published_at }}",
+  "dateModified": "{{ article.published_at }}",
+  "author": {
+    "@type": "Organization",
+    "name": {{ config.COMPANY_NAME|tojson }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ config.COMPANY_NAME|tojson }}
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ abs_url(request.path)|tojson }}
+  },
+  "image": {{ (abs_url(article.image_url) if article.image_url else "https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80")|tojson }}
+}
+</script>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    window.addEventListener("scroll", function () {
+        const progress = document.getElementById("readingProgress");
+        const doc = document.documentElement;
+        const top = doc.scrollTop || document.body.scrollTop;
+        const height = doc.scrollHeight - doc.clientHeight;
+        const percent = height > 0 ? (top / height) * 100 : 0;
+        progress.style.width = percent + "%";
+    });
+
+    const copyBtn = document.getElementById("copyArticleLink");
+    const copyMsg = document.getElementById("copyArticleMessage");
+    if (copyBtn && copyMsg) {
+        copyBtn.addEventListener("click", async () => {
+            try {
+                await navigator.clipboard.writeText(window.location.href);
+                copyMsg.textContent = "Ссылка скопирована.";
+            } catch (e) {
+                copyMsg.textContent = "Не удалось скопировать ссылку.";
+            }
+        });
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "base_futuristic.html" %}
+
+{% block title %}Услуги — {{ config.COMPANY_NAME }}{% endblock %}
+{% block meta_description %}Услуги {{ config.COMPANY_NAME }}: ремонт, плановое ТО, модернизация и аварийный выезд по лифтам на нашем обслуживании в Санкт-Петербурге и Ленинградской области.{% endblock %}
+{% block og_title %}Услуги {{ config.COMPANY_NAME }} — обслуживание лифтов{% endblock %}
+{% block og_description %}Техническое обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}
+{% block twitter_title %}Услуги {{ config.COMPANY_NAME }}{% endblock %}
+{% block twitter_description %}Ремонт, ТО и модернизация лифтов. Аварийный выезд по лифтам на нашем обслуживании.{% endblock %}
+
+{% block content %}
+<section class="section section-top-spaced">
+    <div class="container">
+        <span class="badge"><i class="fa-solid fa-screwdriver-wrench"></i> Портфель услуг</span>
+        <h1 class="section-title section-title-spaced">Комплексный сервис лифтового оборудования</h1>
+        <p class="section-subtitle">От планового обслуживания до модернизации и аварийного реагирования по лифтам на нашем обслуживании.</p>
+
+        <div class="grid-2">
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-wrench"></i></div>
+                <h3>Ремонт лифтов</h3>
+                <p>Диагностика, устранение неисправностей, восстановление работоспособности.</p>
+            </article>
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-gears"></i></div>
+                <h3>Плановое ТО</h3>
+                <p>Профилактика, проверки безопасности, регламентные работы и документы.</p>
+            </article>
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-rotate"></i></div>
+                <h3>Модернизация</h3>
+                <p>Обновление узлов управления, энергоэффективные решения, продление ресурса.</p>
+            </article>
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>Аварийный выезд</h3>
+                <p>Оперативный выезд и устранение критических инцидентов по лифтам, находящимся на нашем обслуживании.</p>
+            </article>
+        </div>
+
+        <div class="actions actions-spaced">
+            <a href="/contacts" class="btn btn-primary"><i class="fa-solid fa-file-signature"></i> Запросить коммерческое предложение</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

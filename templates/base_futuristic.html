@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='logo-512.svg', v='2') }}" sizes="any">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png', v='1') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='logo.png', v='1') }}">
+    <meta name="theme-color" content="#0e1424">
+    <title>{% block title %}{{ config.COMPANY_NAME }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Техническое обслуживание, ремонт и модернизация лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}">
+    <meta name="robots" content="{% block meta_robots %}index,follow{% endblock %}">
+    <link rel="canonical" href="{% block canonical_url %}{{ abs_url(request.path) }}{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:site_name" content="{{ config.COMPANY_NAME }}">
+    <meta property="og:title" content="{% block og_title %}{{ config.COMPANY_NAME }} — обслуживание лифтов{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Профессиональное обслуживание и ремонт лифтов. Аварийный выезд выполняется по лифтам на нашем обслуживании.{% endblock %}">
+    <meta property="og:url" content="{% block og_url %}{{ abs_url(request.path) }}{% endblock %}">
+    <meta property="og:image" content="{% block og_image %}https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{% block twitter_title %}{{ config.COMPANY_NAME }} — обслуживание лифтов{% endblock %}">
+    <meta name="twitter:description" content="{% block twitter_description %}Обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}">
+    <meta name="twitter:image" content="{% block twitter_image %}https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80{% endblock %}">
+    {% if config.YANDEX_METRIKA_ID %}
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+        ym({{ config.YANDEX_METRIKA_ID }}, "init", {
+            clickmap:true,
+            trackLinks:true,
+            accurateTrackBounce:true,
+            webvisor:true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/{{ config.YANDEX_METRIKA_ID }}" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    {% endif %}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "{{ config.COMPANY_NAME }}",
+      "url": "{{ site_url() }}",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "{{ abs_url(url_for('static', filename='logo-512.svg', v='2')) }}"
+      },
+      "description": "Техническое обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "{{ config.COMPANY_ADDRESS }}",
+        "addressLocality": "{{ config.COMPANY_CITY }}",
+        "addressCountry": "RU"
+      },
+      "areaServed": [
+        "Санкт-Петербург",
+        "Ленинградская область"
+      ],
+      "openingHours": "{{ config.COMPANY_WORK_HOURS }}"
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/futuristic.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="site-header">
+        <div class="container nav">
+            <a href="/" class="brand">
+                <span class="brand-icon"><i class="fa-solid fa-arrows-up-down"></i></span>
+                <span class="brand-name">ЭТАЖИ</span>
+            </a>
+
+            <button id="mobileMenuBtn" class="mobile-btn" type="button" aria-label="Меню" aria-controls="navLinks" aria-expanded="false">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+            <nav id="navLinks" class="nav-links">
+                <a href="/" class="{% if request.endpoint == 'home' %}active{% endif %}"><i class="fa-solid fa-house"></i> Главная</a>
+                <a href="/services" class="{% if request.endpoint == 'services' %}active{% endif %}"><i class="fa-solid fa-screwdriver-wrench"></i> Услуги</a>
+                <a href="/contacts" class="{% if request.endpoint == 'contacts' %}active{% endif %}"><i class="fa-solid fa-envelope"></i> Контакты</a>
+                <a href="/news" class="{% if request.endpoint in ['news', 'news_article'] %}active{% endif %}"><i class="fa-solid fa-newspaper"></i> Новости</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="flash-wrap">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endwith %}
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <h3 data-footer-logo>ООО «ЭТАЖИ»</h3>
+                <p>Техническое обслуживание и ремонт лифтового оборудования.</p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p><i class="fa-solid fa-location-dot"></i> {{ config.COMPANY_ADDRESS }}</p>
+                <p><i class="fa-solid fa-clock"></i> {{ config.COMPANY_WORK_HOURS }}, аварийные обращения по лифтам на обслуживании</p>
+                <p><i class="fa-solid fa-id-card"></i> ИНН {{ config.COMPANY_INN }} • ОГРН {{ config.COMPANY_OGRN }}</p>
+            </div>
+            <div>
+                <h4>Навигация</h4>
+                <p><a href="/">Главная</a></p>
+                <p><a href="/services">Услуги</a></p>
+                <p><a href="/contacts">Контакты</a></p>
+                <p><a href="/news">Новости</a></p>
+            </div>
+        </div>
+        <div class="container footer-legal">
+            © {{ current_year }} ООО «ЭТАЖИ». Информация на сайте не является публичной офертой.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/futuristic.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

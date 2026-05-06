@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}Контакты - {{ config.COMPANY_NAME }} | Свяжитесь с нами{% endblock %}
+{% block meta_description %}Контакты ООО "ЭТАЖИ": оставьте заявку на обслуживание и ремонт лифтов в Санкт-Петербурге и Ленинградской области.{% endblock %}
+{% block og_title %}Контакты {{ config.COMPANY_NAME }}{% endblock %}
+{% block og_description %}Оставьте заявку через форму обратной связи. Работаем по объектам в Санкт-Петербурге и Ленинградской области.{% endblock %}
+{% block twitter_title %}Контакты {{ config.COMPANY_NAME }}{% endblock %}
+{% block twitter_description %}Заявки на обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/contacts.css', v='safari-icons-1') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Hero секция -->
+<section class="contacts-hero">
+    <div class="container">
+        <h1 class="hero-main-title">
+            Заявки на обслуживание
+            <span class="contacts-hero-accent">и ремонт лифтов</span>
+        </h1>
+<p class="hero-lead">
+        Оставьте обращение через форму. Мы свяжемся с вами и уточним детали по вашему объекту.
+    </p>
+
+    <div class="hero-contact-form-wrap animate-on-scroll">
+        <h2 class="hero-contact-form-title">Оставьте заявку</h2>
+        <form method="POST" action="/contacts" class="hero-contact-form">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="hero-contact-grid">
+                <input type="text" name="name" placeholder="Ваше имя *" required minlength="2" maxlength="80" class="form-control hero-contact-input">
+                <input type="email" name="email" placeholder="Email *" required maxlength="120" class="form-control hero-contact-input">
+                <input type="tel" name="phone" placeholder="Телефон" maxlength="25" class="form-control hero-contact-input">
+            </div>
+            <textarea name="message" placeholder="Кратко опишите задачу *" required minlength="10" maxlength="4000" class="form-control form-textarea hero-contact-textarea"></textarea>
+            <button type="submit" class="btn hero-contact-submit">
+                <i class="fas fa-paper-plane"></i> Отправить заявку
+            </button>
+        </form>
+    </div>
+    </div>
+</section>
+
+<!-- Контакты и форма -->
+<section class="contacts-main">
+    <div class="container">
+        <div class="contacts-grid">
+            <!-- Контактная информация -->
+            <div class="animate-on-scroll contact-spec-wrap">
+                <aside class="contact-spec-panel" aria-label="Адрес и реквизиты офиса">
+                    <header class="contact-spec-panel__head">
+                        <p class="contact-spec-panel__eyebrow">Офис</p>
+                        <h2 class="contact-spec-panel__title">Санкт-Петербург</h2>
+                    </header>
+                    <div class="contact-spec-panel__body">
+                        <article class="contact-spec-block contact-spec-block--address">
+                            <div class="contact-spec-block__icon" aria-hidden="true">
+                                <i class="fas fa-location-dot"></i>
+                            </div>
+                            <div class="contact-spec-block__main">
+                                <h3 class="contact-spec-block__label">Юридический и почтовый адрес</h3>
+                                <p class="contact-spec-block__text">{{ config.COMPANY_ADDRESS }}</p>
+                            </div>
+                        </article>
+                        <div class="contact-spec-split">
+                            <article class="contact-spec-block contact-spec-block--tight">
+                                <div class="contact-spec-block__icon contact-spec-block__icon--sm" aria-hidden="true">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="contact-spec-block__main">
+                                    <h3 class="contact-spec-block__label">Часы приёма</h3>
+                                    <p class="contact-spec-block__text">{{ config.COMPANY_WORK_HOURS }}</p>
+                                </div>
+                            </article>
+                            <article class="contact-spec-block contact-spec-block--tight">
+                                <div class="contact-spec-block__icon contact-spec-block__icon--sm" aria-hidden="true">
+                                    <i class="fas fa-fingerprint"></i>
+                                </div>
+                                <div class="contact-spec-block__main">
+                                    <h3 class="contact-spec-block__label">Реквизиты</h3>
+                                    <dl class="contact-spec-reg">
+                                        <div class="contact-spec-reg__row">
+                                            <dt>ИНН</dt>
+                                            <dd><span class="contact-spec-code">{{ config.COMPANY_INN }}</span></dd>
+                                        </div>
+                                        <div class="contact-spec-reg__row">
+                                            <dt>ОГРН</dt>
+                                            <dd><span class="contact-spec-code">{{ config.COMPANY_OGRN }}</span></dd>
+                                        </div>
+                                    </dl>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA - Бесплатная консультация лифта -->
+<section class="contacts-cta">
+    <div class="contacts-cta-overlay"></div>
+    <div class="container contacts-cta-content">
+        <div class="contacts-cta-wrap">
+            <i class="fas fa-clipboard-check contacts-cta-icon"></i>
+            <h2 class="contacts-cta-title">
+                Бесплатная консультация по лифтовому оборудованию
+            </h2>
+            <p class="contacts-cta-text">
+                Наши специалисты приедут к вам на объект, проведут осмотр лифтов и оценят их техническое состояние. 
+                После диагностики мы предоставим полную информацию о состоянии оборудования и предложим варианты 
+                обслуживания, соответствующие вашим потребностям.
+            </p>
+            <a href="/contacts" class="btn contacts-cta-btn">
+                <i class="fas fa-calendar-check"></i> Записаться на осмотр
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

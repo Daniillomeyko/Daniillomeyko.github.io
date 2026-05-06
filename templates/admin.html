@@ -1,0 +1,198 @@
+{% extends "base.html" %}
+
+{% block title %}Админ-панель - {{ config.COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+<!-- Hero секция -->
+<section style="background: linear-gradient(135deg, rgba(26, 26, 46, 0.95), rgba(102, 126, 234, 0.9)), url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; color: white; padding: 120px 0 80px; text-align: center; position: relative;">
+    <div class="container">
+        <span style="background: var(--gradient-2); padding: 8px 25px; border-radius: 50px; font-size: 14px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; display: inline-block; margin-bottom: 20px;">
+            <i class="fas fa-cog"></i> Панель управления
+        </span>
+        <h1 style="font-size: 52px; font-weight: 800; margin-bottom: 15px;">Админ-панель</h1>
+        <p style="font-size: 18px; opacity: 0.9;">Управление заявками от клиентов</p>
+    </div>
+</section>
+
+<!-- Статистика -->
+<section style="padding: 60px 0; background: var(--light);">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 50px;">
+            <div class="animate-on-scroll" style="background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-md); text-align: center; border-left: 5px solid var(--primary);">
+                <div style="width: 70px; height: 70px; background: var(--gradient-2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-inbox" style="font-size: 32px; color: white;"></i>
+                </div>
+                <div style="font-size: 42px; font-weight: 800; color: var(--dark); margin-bottom: 5px;">{{ total_messages }}</div>
+                <div style="color: #666; font-size: 15px;">Всего заявок</div>
+            </div>
+            
+            <div class="animate-on-scroll delay-1" style="background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-md); text-align: center; border-left: 5px solid #ff9800;">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #ff9800 0%, #ff5722 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-clock" style="font-size: 32px; color: white;"></i>
+                </div>
+                <div style="font-size: 42px; font-weight: 800; color: var(--dark); margin-bottom: 5px;">{{ unread_count }}</div>
+                <div style="color: #666; font-size: 15px;">Новых заявок</div>
+            </div>
+            
+            <div class="animate-on-scroll delay-2" style="background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-md); text-align: center; border-left: 5px solid var(--secondary);">
+                <div style="width: 70px; height: 70px; background: var(--gradient-3); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-check-circle" style="font-size: 32px; color: white;"></i>
+                </div>
+                <div style="font-size: 42px; font-weight: 800; color: var(--dark); margin-bottom: 5px;">{{ read_count }}</div>
+                <div style="color: #666; font-size: 15px;">Обработанных</div>
+            </div>
+
+            <div class="animate-on-scroll delay-3" style="background: white; padding: 35px; border-radius: 20px; box-shadow: var(--shadow-md); text-align: center; border-left: 5px solid #667eea;">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px;">
+                    <i class="fas fa-newspaper" style="font-size: 30px; color: white;"></i>
+                </div>
+                <div style="font-size: 42px; font-weight: 800; color: var(--dark); margin-bottom: 5px;">{{ total_articles }}</div>
+                <div style="color: #666; font-size: 15px;">Опубликованных статей</div>
+            </div>
+        </div>
+
+        <!-- Фильтры -->
+        <div style="background: white; padding: 25px; border-radius: 20px; box-shadow: var(--shadow-md); margin-bottom: 30px;">
+            <form method="GET" action="/admin" style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <label style="font-weight: 600; color: var(--dark); font-size: 16px;"><i class="fas fa-filter" style="color: var(--primary); margin-right: 8px;"></i>Фильтр:</label>
+                <select name="filter" onchange="this.form.submit()" style="padding: 12px 20px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 15px; font-weight: 500; cursor: pointer;">
+                    <option value="all" {% if filter == 'all' %}selected{% endif %}>Все заявки</option>
+                    <option value="unread" {% if filter == 'unread' %}selected{% endif %}>Непрочитанные</option>
+                    <option value="read" {% if filter == 'read' %}selected{% endif %}>Обработанные</option>
+                </select>
+                <div style="display: flex; gap: 10px; margin-left: auto;">
+                    <a href="/admin" class="btn" style="padding: 12px 25px; font-size: 15px;">
+                        <i class="fas fa-sync-alt"></i> Обновить
+                    </a>
+                    <a href="/admin/logout" class="btn" style="padding: 12px 25px; font-size: 15px; background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); box-shadow: none; color: white;">
+                        <i class="fas fa-sign-out-alt"></i> Выйти
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Публикация статьи -->
+        <div style="background: white; padding: 28px; border-radius: 20px; box-shadow: var(--shadow-md); margin-bottom: 30px;">
+            <h2 style="font-size: 24px; color: var(--dark); margin-bottom: 16px;">
+                <i class="fas fa-pen-nib" style="color: var(--primary); margin-right: 8px;"></i>Новая статья
+            </h2>
+            <form method="POST" action="/admin/articles/create" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
+                    <input type="text" name="title" placeholder="Заголовок статьи *" required style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="text" name="slug" placeholder="Slug (необязательно, латиницей)" style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="text" name="category" placeholder="Категория (например: Эксплуатация)" style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" style="padding: 10px 12px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 14px; background: #fff;">
+                </div>
+                <p style="margin: 0 0 12px; color: #7b859d; font-size: 13px;">Рекомендуется горизонтальное фото 1600x900 или 1920x1080. Система автоматически оптимизирует и сохраняет обложку в WEBP.</p>
+                <input type="text" name="excerpt" placeholder="Короткое описание статьи *" required style="width: 100%; padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px; margin-bottom: 12px;">
+                <textarea name="content" required placeholder="Текст статьи * (каждый абзац с новой строки)" style="width: 100%; min-height: 150px; padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px; line-height: 1.6; margin-bottom: 14px;"></textarea>
+                <button type="submit" class="btn" style="padding: 12px 24px; font-size: 15px;">
+                    <i class="fas fa-upload"></i> Опубликовать статью
+                </button>
+            </form>
+        </div>
+
+        <!-- Последние статьи -->
+        <div style="background: white; border-radius: 20px; box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 30px;">
+            <div style="padding: 20px 24px; border-bottom: 1px solid #f0f0f0;">
+                <h3 style="font-size: 20px; color: var(--dark); margin: 0;">
+                    <i class="fas fa-list" style="color: #667eea; margin-right: 8px;"></i>Последние статьи
+                </h3>
+            </div>
+            {% if articles %}
+                {% for article in articles %}
+                <div style="padding: 16px 24px; border-bottom: 1px solid #f5f5f5; display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+                    <div>
+                        <div style="font-weight: 700; color: var(--dark);">{{ article.title }}</div>
+                        <div style="font-size: 13px; color: #7a8399;">{{ article.published_at }} • {{ article.category }}</div>
+                    </div>
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <form method="POST" action="/admin/articles/{{ article.slug }}/move-up" style="display: inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" title="Поднять выше" style="background: none; border: none; color: #667eea; font-weight: 700; cursor: pointer; padding: 0;">↑</button>
+                        </form>
+                        <form method="POST" action="/admin/articles/{{ article.slug }}/move-down" style="display: inline;">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" title="Опустить ниже" style="background: none; border: none; color: #667eea; font-weight: 700; cursor: pointer; padding: 0;">↓</button>
+                        </form>
+                        <a href="/news/{{ article.slug }}" target="_blank" rel="noopener" style="color: var(--primary); font-weight: 600; text-decoration: none;">Открыть</a>
+                        <a href="/admin/articles/{{ article.slug }}/edit" style="color: #667eea; font-weight: 600; text-decoration: none;">Редактировать</a>
+                        <form method="POST" action="/admin/articles/{{ article.slug }}/delete" style="display: inline;" onsubmit="return confirm('Удалить статью?');">
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                            <button type="submit" style="background: none; border: none; color: #f44336; font-weight: 600; cursor: pointer; padding: 0;">Удалить</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="padding: 18px 24px; color: #7a8399;">Пока нет опубликованных статей.</div>
+            {% endif %}
+        </div>
+
+        <!-- Список заявок -->
+        <div style="background: white; border-radius: 20px; box-shadow: var(--shadow-md); overflow: hidden;">
+            {% if messages %}
+                {% for msg in messages %}
+                <div style="padding: 30px; border-bottom: 1px solid #f0f0f0; background: {% if not msg.is_read %}linear-gradient(135deg, #fff3e0 0%, #ffffff 100%){% else %}white{% endif %};">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;">
+                        <div style="flex: 1; min-width: 250px;">
+                            <h3 style="font-size: 20px; font-weight: 700; color: var(--dark); margin-bottom: 8px;">
+                                {% if not msg.is_read %}<span style="background: var(--primary); color: white; padding: 2px 10px; border-radius: 20px; font-size: 12px; margin-right: 10px;">NEW</span>{% endif %}
+                                <i class="fas fa-user" style="color: var(--primary); margin-right: 8px;"></i>{{ msg.name }}
+                            </h3>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">
+                                <i class="fas fa-envelope" style="color: var(--secondary); margin-right: 6px;"></i>{{ msg.email }}
+                            </div>
+                            <div style="color: #666; font-size: 14px; margin-bottom: 5px;">
+                                <i class="fas fa-phone" style="color: #667eea; margin-right: 6px;"></i>{{ msg.phone or 'Не указан' }}
+                            </div>
+                            <div style="color: #999; font-size: 13px;">
+                                <i class="fas fa-calendar" style="color: #f093fb; margin-right: 6px;"></i>{{ msg.created_at.strftime('%d.%m.%Y %H:%M') }}
+                                {% if msg.is_read %}<span style="margin-left: 10px;"><i class="fas fa-check" style="color: var(--secondary);"></i> Прочитано</span>{% else %}<span style="margin-left: 10px;"><i class="fas fa-dot-circle" style="color: #ff9800;"></i> Не прочитано</span>{% endif %}
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                            {% if not msg.is_read %}
+                            <form method="POST" action="/admin/mark-read/{{ msg.id }}" style="display: inline;">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn" style="padding: 10px 20px; font-size: 14px; background: linear-gradient(135deg, var(--secondary) 0%, #44A08D 100%); box-shadow: none;">
+                                    <i class="fas fa-check"></i> Прочитано
+                                </button>
+                            </form>
+                            {% endif %}
+                            <a href="mailto:{{ msg.email }}?subject=Ответ на заявку&body=Здравствуйте, {{ msg.name }}!%0D%0A%0D%0AСпасибо за ваше обращение.%0D%0A{{ msg.message }}%0D%0A%0D%0AС уважением,%0D%0AООО 'ЭТАЖИ'" class="btn" style="padding: 10px 20px; font-size: 14px; background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); box-shadow: none;">
+                                <i class="fas fa-reply"></i> Ответить
+                            </a>
+                            <form method="POST" action="/admin/delete/{{ msg.id }}" style="display: inline;" onsubmit="return confirm('Вы уверены, что хотите удалить эту заявку?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn" style="padding: 10px 20px; font-size: 14px; background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%); box-shadow: none;">
+                                    <i class="fas fa-trash"></i> Удалить
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 12px; margin-top: 15px; border: 1px solid #f0f0f0;">
+                        <p style="color: #555; line-height: 1.7; white-space: pre-wrap; font-size: 15px;">{{ msg.message }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div style="padding: 80px 40px; text-align: center;">
+                    <div style="width: 120px; height: 120px; background: var(--light); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px;">
+                        <i class="fas fa-inbox" style="font-size: 64px; color: #ccc;"></i>
+                    </div>
+                    <h3 style="font-size: 26px; font-weight: 700; color: var(--dark); margin-bottom: 12px;">Заявок пока нет</h3>
+                    <p style="color: #999; font-size: 16px; max-width: 400px; margin: 0 auto;">Когда клиенты заполнят форму обратной связи, они появятся здесь.</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="/" class="btn-back" style="font-size: 16px; padding: 14px 35px;">
+                <i class="fas fa-arrow-left"></i> На главную
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}

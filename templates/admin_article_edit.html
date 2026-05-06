@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Редактирование статьи - {{ config.COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+<section style="padding: 110px 0 60px; background: var(--light);">
+    <div class="container" style="max-width: 920px;">
+        <h1 style="font-size: 38px; color: var(--dark); margin-bottom: 12px;">Редактирование статьи</h1>
+        <p style="color: #6e7890; margin-bottom: 24px;">Изменения сохраняются сразу в базу статей сайта.</p>
+
+        <div class="ui-card" style="padding: 24px;">
+            <form method="POST" action="/admin/articles/{{ article.slug }}/edit" enctype="multipart/form-data">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-bottom: 12px;">
+                    <input type="text" name="title" value="{{ article.title }}" placeholder="Заголовок статьи *" required style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="text" name="slug" value="{{ article.slug }}" placeholder="Slug (латиницей)" style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="text" name="category" value="{{ article.category }}" placeholder="Категория" style="padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px;">
+                    <input type="file" name="image" accept=".jpg,.jpeg,.png,.webp" style="padding: 10px 12px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 14px; background: #fff;">
+                </div>
+                <p style="margin: 0 0 12px; color: #7b859d; font-size: 13px;">Лучший формат для обложки: горизонтальное фото 16:9 (например, 1600x900). При сохранении изображение автоматически оптимизируется.</p>
+                {% if article.image_url %}
+                <div style="margin-bottom: 12px;">
+                    <p style="margin: 0 0 8px; color: #667088; font-size: 14px;">Текущая обложка:</p>
+                    <img src="{{ article.image_url }}" alt="Обложка статьи" style="max-width: 260px; border-radius: 12px; border: 1px solid #e6e9f2;">
+                </div>
+                {% endif %}
+
+                <input type="text" name="excerpt" value="{{ article.excerpt }}" placeholder="Короткое описание статьи *" required style="width: 100%; padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px; margin-bottom: 12px;">
+                <textarea name="content" required placeholder="Текст статьи *" style="width: 100%; min-height: 200px; padding: 12px 14px; border: 2px solid #e6e9f2; border-radius: 10px; font-size: 15px; line-height: 1.6; margin-bottom: 14px;">{{ article.content }}</textarea>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button type="submit" class="btn" style="padding: 12px 24px; font-size: 15px;">
+                        <i class="fas fa-save"></i> Сохранить изменения
+                    </button>
+                    <a href="/admin" class="btn" style="padding: 12px 24px; font-size: 15px; background: #eef2ff; color: #374151; box-shadow: none;">
+                        <i class="fas fa-arrow-left"></i> Назад в админку
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

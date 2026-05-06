@@ -1,0 +1,65 @@
+{% extends "base_futuristic.html" %}
+
+{% block title %}Главная — {{ config.COMPANY_NAME }}{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="container hero-grid">
+        <div class="reveal">
+            <span class="badge"><i class="fa-solid fa-shield-halved"></i> Специализированная сервисная организация</span>
+            <h1>Технологичное обслуживание лифтов в Санкт‑Петербурге</h1>
+            <p class="lead">Работаем с 2021 года. Прозрачная отчётность и инженерный подход на каждом объекте. Аварийный выезд выполняется по лифтам на нашем обслуживании.</p>
+            <div class="actions">
+                <a href="/contacts" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Оставить заявку</a>
+                <a href="/services" class="btn"><i class="fa-solid fa-layer-group"></i> Смотреть услуги</a>
+            </div>
+        </div>
+
+        <div class="panel hero-panel reveal">
+            <h3>Операционные показатели</h3>
+            <p class="section-subtitle">Актуальные KPI сервиса</p>
+            <div class="kpi-grid">
+                <div class="kpi"><b>262+</b><span>лифтов на обслуживании</span></div>
+                <div class="kpi"><b>1500+</b><span>выполненных работ</span></div>
+                <div class="kpi"><b>По регламенту</b><span>порядок аварийного реагирования по лифтам на нашем обслуживании</span></div>
+                <div class="kpi"><b>98%</b><span>удовлетворенность клиентов</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Почему выбирают нас</h2>
+        <p class="section-subtitle">Не просто ремонт, а системная эксплуатация лифтового оборудования с упором на надёжность и безопасность.</p>
+        <div class="grid-3">
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-gauge-high"></i></div>
+                <h3>SLA и контроль сроков</h3>
+                <p>Фиксируем сроки реагирования и исполнения, чтобы объект не простаивал.</p>
+            </article>
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-wrench"></i></div>
+                <h3>Инженерная экспертиза</h3>
+                <p>Работаем с современными и legacy-системами: KONE, OTIS и др.</p>
+            </article>
+            <article class="card reveal">
+                <div class="icon"><i class="fa-solid fa-file-shield"></i></div>
+                <h3>Прозрачная отчётность</h3>
+                <p>Полные акты и история работ по каждому обслуживаемому лифту.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container panel partners-panel">
+        <h2 class="section-title">Партнёры</h2>
+        <p class="section-subtitle">Компании, которые доверяют нам эксплуатацию подъёмного оборудования.</p>
+        <div class="grid-2">
+            <div class="card reveal"><h3><i class="fa-solid fa-building"></i> К‑Квартал</h3><p>Жилой фонд и плановое техническое обслуживание.</p></div>
+            <div class="card reveal"><h3><i class="fa-solid fa-city"></i> Дудергоф</h3><p>Плановое обслуживание, аварийные выезды по обслуживаемым лифтам и модернизация узлов.</p></div>
+        </div>
+    </div>
+</section>
+{% endblock %}
