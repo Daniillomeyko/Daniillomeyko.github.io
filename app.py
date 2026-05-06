@@ -295,15 +295,27 @@ def load_articles():
         if isinstance(data, list):
             for item in data:
                 image_url = (item or {}).get("image_url", "")
-                if image_url and image_url.startswith("/static/uploads/articles/"):
+                if not image_url:
+                    continue
+
+                normalized_image_url = image_url.strip()
+                # Support legacy records that might miss a leading slash.
+                if normalized_image_url.startswith("static/uploads/articles/"):
+                    normalized_image_url = f"/{normalized_image_url}"
+
+                if normalized_image_url.startswith("/static/uploads/articles/"):
                     absolute_image_path = os.path.join(
                         os.path.dirname(os.path.abspath(__file__)),
-                        image_url.lstrip("/")
+                        normalized_image_url.lstrip("/")
                     )
-                    # If image file is missing in a specific environment (e.g. Windows deploy),
-                    # fallback to icon instead of rendering a broken <img>.
-                    if not os.path.exists(absolute_image_path):
+                    # If image file is missing, fallback to icon instead of a broken <img>.
+                    if os.path.exists(absolute_image_path):
+                        item["image_url"] = normalized_image_url
+                    else:
                         item["image_url"] = ""
+                else:
+                    # External links are kept as-is.
+                    item["image_url"] = normalized_image_url
             return data
     except Exception as e:
         logger.warning("Не удалось загрузить articles.json: %s", e)
