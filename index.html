@@ -6,178 +6,153 @@
     <title>ООО «ЭТАЖИ» — обслуживание и ремонт лифтов</title>
     <meta
       name="description"
-      content="ООО «ЭТАЖИ»: техническое обслуживание, ремонт и модернизация лифтового оборудования в Санкт-Петербурге и Ленинградской области."
+      content="Техническое обслуживание, ремонт и модернизация лифтового оборудования в Санкт-Петербурге и Ленинградской области."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header class="header">
+    <header class="site-header">
       <div class="container nav">
-        <a href="#home" class="logo">ООО «ЭТАЖИ»</a>
-        <div class="nav-actions">
-          <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">🌙</button>
-          <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">Меню</button>
-        </div>
-        <nav id="main-menu" class="menu">
-          <a href="#services">Услуги</a>
-          <a href="#process">Процесс</a>
-          <a href="#advantages">Преимущества</a>
-          <a href="#contacts">Контакты</a>
+        <a href="#home" class="brand">
+          <span class="brand-icon"><i class="fa-solid fa-arrows-up-down"></i></span>
+          <span class="brand-name">ЭТАЖИ</span>
+        </a>
+        <button id="mobileMenuBtn" class="mobile-btn" type="button" aria-label="Меню" aria-controls="navLinks" aria-expanded="false">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <nav id="navLinks" class="nav-links">
+          <a href="#home"><i class="fa-solid fa-house"></i> Главная</a>
+          <a href="#services"><i class="fa-solid fa-screwdriver-wrench"></i> Услуги</a>
+          <a href="#contacts"><i class="fa-solid fa-envelope"></i> Контакты</a>
         </nav>
       </div>
     </header>
 
-    <main id="home" class="hero container">
-      <p class="kicker">С 2021 года · Санкт-Петербург и ЛО</p>
-      <h1>Техническое обслуживание и ремонт лифтового оборудования</h1>
-      <p class="subtitle">
-        Работаем с жилыми и коммерческими объектами. Выполняем плановое ТО, ремонт,
-        модернизацию и аварийный выезд по лифтам на нашем обслуживании.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="#contacts">Оставить заявку</a>
-        <a class="btn btn-secondary" href="#services">Смотреть услуги</a>
-      </div>
-      <div class="kpi-row">
-        <article class="kpi">
-          <strong>262+</strong>
-          <span>лифтов на обслуживании</span>
-        </article>
-        <article class="kpi">
-          <strong>1500+</strong>
-          <span>выполненных работ</span>
-        </article>
-        <article class="kpi">
-          <strong>2021</strong>
-          <span>год основания компании</span>
-        </article>
-      </div>
+    <main>
+      <section id="home" class="hero">
+        <div class="container hero-grid">
+          <div class="reveal">
+            <span class="badge"><i class="fa-solid fa-shield-halved"></i> Специализированная сервисная организация</span>
+            <h1>Технологичное обслуживание лифтов в Санкт-Петербурге</h1>
+            <p class="lead">
+              Работаем с 2021 года. Прозрачная отчетность и инженерный подход на каждом объекте.
+              Аварийный выезд выполняется по лифтам на нашем обслуживании.
+            </p>
+            <div class="actions">
+              <a href="#contacts" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> Оставить заявку</a>
+              <a href="#services" class="btn"><i class="fa-solid fa-layer-group"></i> Смотреть услуги</a>
+            </div>
+          </div>
+
+          <div class="panel hero-panel reveal">
+            <h3>Операционные показатели</h3>
+            <p class="section-subtitle">Актуальные KPI сервиса</p>
+            <div class="kpi-grid">
+              <div class="kpi"><b>262+</b><span>лифтов на обслуживании</span></div>
+              <div class="kpi"><b>1500+</b><span>выполненных работ</span></div>
+              <div class="kpi"><b>По регламенту</b><span>порядок аварийного реагирования по лифтам на нашем обслуживании</span></div>
+              <div class="kpi"><b>2021</b><span>год основания компании</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section">
+        <div class="container">
+          <h2 class="section-title">Комплексный сервис лифтового оборудования</h2>
+          <p class="section-subtitle">От планового обслуживания до модернизации и аварийного реагирования по лифтам на нашем обслуживании.</p>
+          <div class="grid-2">
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-wrench"></i></div>
+              <h3>Ремонт лифтов</h3>
+              <p>Профессиональная диагностика, устранение неисправностей и тестирование систем после ремонта.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-cogs"></i></div>
+              <h3>Плановое ТО</h3>
+              <p>Регулярные инспекции, проверка систем безопасности и ведение эксплуатационной документации.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+              <h3>Модернизация</h3>
+              <p>Обновление узлов, внедрение энергоэффективных решений и повышение комфорта эксплуатации.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+              <h3>Аварийный выезд</h3>
+              <p>Оперативное реагирование и восстановление работоспособности по лифтам на обслуживании.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Почему выбирают нас</h2>
+          <p class="section-subtitle">Не просто ремонт, а системная эксплуатация лифтового оборудования с упором на надежность и безопасность.</p>
+          <div class="grid-3">
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-gauge-high"></i></div>
+              <h3>SLA и контроль сроков</h3>
+              <p>Фиксируем сроки реагирования и исполнения, чтобы объект не простаивал.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-file-shield"></i></div>
+              <h3>Прозрачная отчетность</h3>
+              <p>Полные акты и история работ по каждому обслуживаемому лифту.</p>
+            </article>
+            <article class="card reveal">
+              <div class="icon"><i class="fa-solid fa-shield"></i></div>
+              <h3>Работа по регламенту</h3>
+              <p>Соблюдаем требования безопасности и технического регламента «Безопасность лифтов».</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacts" class="section">
+        <div class="container contact-layout">
+          <div class="card reveal">
+            <h3>ООО «ЭТАЖИ»</h3>
+            <p>198320, г. Санкт-Петербург, пр-кт Ленина, д. 77 литера А, этаж 4, офис 418</p>
+            <p>Пн-Пт: 9:00 - 18:00</p>
+            <p>ИНН 7807250523 • ОГРН 1217800123420</p>
+          </div>
+          <div class="card reveal">
+            <h3>Заявки и консультации</h3>
+            <p>Для коммерческих предложений и обслуживания объектов:</p>
+            <p><a href="mailto:daniillomeyko@mail.ru">daniillomeyko@mail.ru</a></p>
+            <p>Аварийный выезд выполняется по лифтам на нашем обслуживании.</p>
+          </div>
+        </div>
+      </section>
     </main>
 
-    <section id="services" class="section container">
-      <div class="section-heading">
-        <p>Портфель услуг</p>
-        <h2>Комплексное сопровождение лифтов</h2>
-      </div>
-      <div class="cards-grid">
-        <article class="card">
-          <p class="card-kicker">01 · Сервис</p>
-          <h3>Ремонт лифтов</h3>
-          <p>Диагностика и устранение неисправностей. Работаем с Могилевлифтмаш, ЩЛЗ, KONE, OTIS и другими брендами.</p>
-          <ul>
-            <li>Полная диагностика систем</li>
-            <li>Замена узлов и деталей</li>
-            <li>Тестирование после ремонта</li>
-          </ul>
-        </article>
-        <article class="card">
-          <p class="card-kicker">02 · Регламент</p>
-          <h3>Плановое ТО</h3>
-          <p>Профилактика и регламентные работы, чтобы снизить риски остановок и продлить срок службы оборудования.</p>
-          <ul>
-            <li>Ежемесячные инспекции</li>
-            <li>Проверка систем безопасности</li>
-            <li>Ведение паспорта лифта</li>
-          </ul>
-        </article>
-        <article class="card">
-          <p class="card-kicker">03 · Обновление</p>
-          <h3>Модернизация</h3>
-          <p>Обновление устаревших систем управления и узлов для повышения энергоэффективности и комфорта.</p>
-          <ul>
-            <li>Частотные преобразователи</li>
-            <li>Обновление кабин и пультов</li>
-            <li>Оптимизация энергопотребления</li>
-          </ul>
-        </article>
-        <article class="card">
-          <p class="card-kicker">04 · Реагирование</p>
-          <h3>Аварийный выезд</h3>
-          <p>Экстренные работы по лифтам, которые находятся на нашем техническом обслуживании.</p>
-          <ul>
-            <li>Освобождение пассажиров</li>
-            <li>Локализация неисправностей</li>
-            <li>Восстановление работоспособности</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="process" class="section container process">
-      <div class="section-heading">
-        <p>Как мы работаем</p>
-        <h2>Прозрачный инженерный процесс</h2>
-      </div>
-      <div class="timeline">
-        <article>
-          <span>01</span>
-          <h3>Заявка и аудит объекта</h3>
-          <p>Фиксируем исходные данные, тип лифта, текущие риски и приоритеты по обслуживанию.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>Техническое решение</h3>
-          <p>Согласовываем перечень работ, сроки исполнения и формат отчетности по договору.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Исполнение и контроль</h3>
-          <p>Проводим работы, тестируем оборудование и передаем закрывающие документы.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="advantages" class="section container">
-      <div class="section-heading">
-        <p>Надежность и соответствие</p>
-        <h2>Почему выбирают ООО «ЭТАЖИ»</h2>
-      </div>
-      <div class="adv-grid">
-        <article>
-          <h3>Работа по регламенту</h3>
-          <p>Соблюдаем требования безопасности и актуальные нормы эксплуатации лифтового оборудования.</p>
-        </article>
-        <article>
-          <h3>Документированная отчетность</h3>
-          <p>Акты выполненных работ и история обслуживаний доступны для внутреннего контроля заказчика.</p>
-        </article>
-        <article>
-          <h3>Фокус на предотвращении отказов</h3>
-          <p>Планово-предупредительный подход снижает аварийность и стабилизирует работу лифтового парка.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="contacts" class="section container contacts">
-      <div class="section-heading">
-        <p>Контакты</p>
-        <h2>Обсудим ваш объект</h2>
-      </div>
-      <div class="contacts-grid">
-        <div class="contact-card">
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
           <h3>ООО «ЭТАЖИ»</h3>
-          <p>198320, г. Санкт-Петербург, пр-кт Ленина, д. 77 литера А, этаж 4, офис 418</p>
-          <p>Пн-Пт: 9:00 - 18:00</p>
-          <p>ИНН 7807250523 · ОГРН 1217800123420</p>
+          <p>Техническое обслуживание и ремонт лифтового оборудования.</p>
         </div>
-        <div class="contact-card">
-          <h3>Заявки</h3>
-          <p>Для коммерческих предложений и обслуживания объектов:</p>
-          <a href="mailto:daniillomeyko@mail.ru">daniillomeyko@mail.ru</a>
-          <p class="note">Аварийный выезд выполняется по лифтам на нашем обслуживании.</p>
+        <div>
+          <h4>Контакты</h4>
+          <p>Санкт-Петербург и Ленинградская область</p>
+          <p>Пн-Пт: 9:00 - 18:00</p>
+          <p>ИНН 7807250523 • ОГРН 1217800123420</p>
+        </div>
+        <div>
+          <h4>Навигация</h4>
+          <p><a href="#home">Главная</a></p>
+          <p><a href="#services">Услуги</a></p>
+          <p><a href="#contacts">Контакты</a></p>
         </div>
       </div>
-    </section>
-
-    <footer class="footer">
-      <div class="container footer-content">
-        <p>© <span id="year"></span> ООО «ЭТАЖИ». Обслуживание и ремонт лифтового оборудования.</p>
+      <div class="container footer-legal">
+        © <span id="year"></span> ООО «ЭТАЖИ». Информация на сайте не является публичной офертой.
       </div>
     </footer>
 
