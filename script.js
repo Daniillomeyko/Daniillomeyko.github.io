@@ -3,6 +3,7 @@ const menuLinks = document.querySelectorAll(".menu a");
 const sections = document.querySelectorAll("main[id], section[id]");
 const menuToggle = document.getElementById("menu-toggle");
 const mainMenu = document.getElementById("main-menu");
+const revealItems = document.querySelectorAll(".card, .kpi, .timeline article, .adv-grid article, .contact-card");
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
@@ -40,3 +41,22 @@ menuLinks.forEach((link) => {
     }
   });
 });
+
+if ("IntersectionObserver" in window) {
+  const observer = new IntersectionObserver(
+    (entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("in-view");
+          obs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  revealItems.forEach((item) => {
+    item.classList.add("reveal");
+    observer.observe(item);
+  });
+}
