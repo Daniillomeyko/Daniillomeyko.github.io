@@ -25,7 +25,7 @@
         <p class="hero-lead">{{ article.excerpt }}</p>
         <div class="news-hero-cover news-theme-{{ article.category|lower|replace(' ', '-') }} {% if article.image_url %}has-image{% endif %}">
             {% if article.image_url %}
-            <img src="{{ article.image_url }}" alt="{{ article.title }}" class="news-hero-image" decoding="async" fetchpriority="high" onerror="this.closest('.news-hero-cover').classList.add('is-image-broken'); this.remove();">
+            <img src="{{ article.image_url }}" alt="{{ article.title }}" class="news-hero-image js-fallback-hero-image" decoding="async" fetchpriority="high">
                 {% set category_key = article.category|lower %}
                 {% if "безопас" in category_key %}
                 <i class="fas fa-shield-alt"></i>
@@ -99,7 +99,7 @@
                 <article class="news-card ui-card news-theme-{{ related.category|lower|replace(' ', '-') }}">
                     <div class="news-card-cover">
                         {% if related.image_url %}
-                        <img src="{{ related.image_url }}" alt="{{ related.title }}" class="news-cover-image" loading="lazy" decoding="async" onerror="this.closest('.news-card-cover').classList.add('is-image-broken'); this.remove();">
+                        <img src="{{ related.image_url }}" alt="{{ related.title }}" class="news-cover-image js-fallback-image" loading="lazy" decoding="async">
                             {% set category_key = related.category|lower %}
                             {% if "безопас" in category_key %}
                             <i class="fas fa-shield-alt"></i>
@@ -164,27 +164,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    window.addEventListener("scroll", function () {
-        const progress = document.getElementById("readingProgress");
-        const doc = document.documentElement;
-        const top = doc.scrollTop || document.body.scrollTop;
-        const height = doc.scrollHeight - doc.clientHeight;
-        const percent = height > 0 ? (top / height) * 100 : 0;
-        progress.style.width = percent + "%";
-    });
-
-    const copyBtn = document.getElementById("copyArticleLink");
-    const copyMsg = document.getElementById("copyArticleMessage");
-    if (copyBtn && copyMsg) {
-        copyBtn.addEventListener("click", async () => {
-            try {
-                await navigator.clipboard.writeText(window.location.href);
-                copyMsg.textContent = "Ссылка скопирована.";
-            } catch (e) {
-                copyMsg.textContent = "Не удалось скопировать ссылку.";
-            }
-        });
-    }
-</script>
+<script src="{{ url_for('static', filename='js/news_article.js') }}"></script>
 {% endblock %}

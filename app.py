@@ -427,7 +427,7 @@ def add_admin_robots_header(response):
     csp_directives = [
         "default-src 'self'",
         "img-src 'self' data: https:",
-        "script-src 'self' 'unsafe-inline' https://mc.yandex.ru https://cdnjs.cloudflare.com",
+        "script-src 'self' https://mc.yandex.ru https://cdnjs.cloudflare.com",
         "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com",
         "font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:",
         "connect-src 'self' https://mc.yandex.ru",

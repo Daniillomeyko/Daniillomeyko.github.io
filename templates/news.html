@@ -35,7 +35,7 @@
             <article class="news-featured-card ui-card news-theme-{{ articles[0].category|lower|replace(' ', '-') }}">
                 <div class="news-card-cover">
                     {% if articles[0].image_url %}
-                    <img src="{{ articles[0].image_url }}" alt="{{ articles[0].title }}" class="news-cover-image" decoding="async" fetchpriority="high" onerror="this.closest('.news-card-cover').classList.add('is-image-broken'); this.remove();">
+                    <img src="{{ articles[0].image_url }}" alt="{{ articles[0].title }}" class="news-cover-image js-fallback-image" decoding="async" fetchpriority="high">
                         {% set category_key = articles[0].category|lower %}
                         {% if "безопас" in category_key %}
                         <i class="fas fa-shield-alt"></i>
@@ -76,7 +76,7 @@
             <article class="news-card ui-card news-theme-{{ article.category|lower|replace(' ', '-') }}">
                 <div class="news-card-cover">
                     {% if article.image_url %}
-                    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="news-cover-image" loading="lazy" decoding="async" onerror="this.closest('.news-card-cover').classList.add('is-image-broken'); this.remove();">
+                    <img src="{{ article.image_url }}" alt="{{ article.title }}" class="news-cover-image js-fallback-image" loading="lazy" decoding="async">
                         {% set category_key = article.category|lower %}
                         {% if "безопас" in category_key %}
                         <i class="fas fa-shield-alt"></i>
@@ -116,18 +116,5 @@
 {% endblock %}
 
 {% block extra_js %}
-<script>
-    document.querySelectorAll(".news-filter-btn").forEach((btn) => {
-        btn.addEventListener("click", () => {
-            const category = btn.dataset.category;
-            document.querySelectorAll(".news-filter-btn").forEach((item) => item.classList.remove("active"));
-            btn.classList.add("active");
-
-            document.querySelectorAll("[data-category]").forEach((card) => {
-                const isVisible = category === "all" || card.dataset.category === category;
-                card.style.display = isVisible ? "" : "none";
-            });
-        });
-    });
-</script>
+<script src="{{ url_for('static', filename='js/news.js') }}"></script>
 {% endblock %}
