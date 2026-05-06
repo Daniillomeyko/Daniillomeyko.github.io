@@ -3,7 +3,10 @@ const menuLinks = document.querySelectorAll(".menu a");
 const sections = document.querySelectorAll("main[id], section[id]");
 const menuToggle = document.getElementById("menu-toggle");
 const mainMenu = document.getElementById("main-menu");
+const themeToggle = document.getElementById("theme-toggle");
 const revealItems = document.querySelectorAll(".card, .kpi, .timeline article, .adv-grid article, .contact-card");
+const savedTheme = localStorage.getItem("theme");
+const prefersLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)");
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
@@ -12,6 +15,39 @@ if (yearElement) {
 if (menuToggle && mainMenu) {
   menuToggle.addEventListener("click", () => {
     mainMenu.classList.toggle("open");
+  });
+}
+
+const applyTheme = (theme) => {
+  const isLight = theme === "light";
+  document.body.classList.toggle("light", isLight);
+  if (themeToggle) {
+    themeToggle.textContent = isLight ? "☀️" : "🌙";
+    themeToggle.setAttribute("aria-label", isLight ? "Переключить на темную тему" : "Переключить на светлую тему");
+  }
+};
+
+if (savedTheme === "light" || savedTheme === "dark") {
+  applyTheme(savedTheme);
+} else if (prefersLight && prefersLight.matches) {
+  applyTheme("light");
+} else {
+  applyTheme("dark");
+}
+
+if (themeToggle) {
+  themeToggle.addEventListener("click", () => {
+    const nextTheme = document.body.classList.contains("light") ? "dark" : "light";
+    applyTheme(nextTheme);
+    localStorage.setItem("theme", nextTheme);
+  });
+}
+
+if (prefersLight && typeof prefersLight.addEventListener === "function") {
+  prefersLight.addEventListener("change", (event) => {
+    if (!localStorage.getItem("theme")) {
+      applyTheme(event.matches ? "light" : "dark");
+    }
   });
 }
 
