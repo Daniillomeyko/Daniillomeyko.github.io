@@ -41,7 +41,13 @@ fi
 echo "→ Локально: $ROOT"
 echo "→ Куда:    ${SSH_TARGET}:${REMOTE}/"
 echo "→ Не копируем: .env, базы, instance, .venv, логи"
+echo "→ Опционально: статические видео можно не копировать при DEPLOY_SKIP_VIDEOS=true"
 echo ""
+
+EXTRA_EXCLUDES=()
+if [[ "${DEPLOY_SKIP_VIDEOS:-false}" == "true" ]]; then
+  EXTRA_EXCLUDES+=(--exclude 'static/videos/')
+fi
 
 rsync -avz -e ssh \
   --exclude '.env' \
@@ -56,6 +62,7 @@ rsync -avz -e ssh \
   --exclude 'instance/' \
   --exclude 'etazhi.log' \
   --exclude '*.log' \
+  "${EXTRA_EXCLUDES[@]}" \
   "$ROOT/" \
   "${SSH_TARGET}:${REMOTE}/"
 

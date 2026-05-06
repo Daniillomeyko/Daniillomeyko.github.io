@@ -12,6 +12,7 @@ import logging
 import secrets
 import socket
 import json
+import hmac
 import re
 import time
 from xml.sax.saxutils import escape
@@ -682,9 +683,11 @@ def admin_login():
         password = request.form.get("password", "")
 
         # Если пароль верный, пускаем сразу и сбрасываем блокировку/счетчик попыток.
-        if password == app.config["ADMIN_PASSWORD"]:
+        if hmac.compare_digest(password, app.config["ADMIN_PASSWORD"]):
             LOGIN_ATTEMPTS.pop(ip, None)
+            session.clear()
             session["admin_logged_in"] = True
+            session["csrf_token"] = secrets.token_hex(32)
             session.permanent = True
             flash("Вы успешно вошли в админ-панель", "success")
             return redirect(url_for("admin"))
