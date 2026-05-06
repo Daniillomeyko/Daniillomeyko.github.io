@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Даниил Ломейко — веб-разработчик</title>
+    <title>ООО «ЭТАЖИ» — обслуживание и ремонт лифтов</title>
     <meta
       name="description"
-      content="Сайт-портфолио Даниила Ломейко: проекты, навыки и контакты."
+      content="ООО «ЭТАЖИ»: техническое обслуживание, ремонт и модернизация лифтового оборудования в Санкт-Петербурге и Ленинградской области."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Unbounded:wght@500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -19,96 +19,159 @@
   <body>
     <header class="header">
       <div class="container nav">
-        <a href="#home" class="logo">Daniil Lomeyko</a>
-        <nav class="menu">
-          <a href="#about">Обо мне</a>
-          <a href="#projects">Проекты</a>
-          <a href="#skills">Навыки</a>
-          <a href="#contact">Контакты</a>
+        <a href="#home" class="logo">ООО «ЭТАЖИ»</a>
+        <button id="menu-toggle" class="menu-toggle" aria-label="Открыть меню">Меню</button>
+        <nav id="main-menu" class="menu">
+          <a href="#services">Услуги</a>
+          <a href="#process">Процесс</a>
+          <a href="#advantages">Преимущества</a>
+          <a href="#contacts">Контакты</a>
         </nav>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Переключить тему">Тема</button>
       </div>
     </header>
 
     <main id="home" class="hero container">
-      <p class="tag">Портфолио веб-разработчика</p>
-      <h1>Делаю сайты, которые выглядят дорого и работают быстро.</h1>
+      <p class="kicker">С 2021 года · Санкт-Петербург и ЛО</p>
+      <h1>Техническое обслуживание и ремонт лифтового оборудования</h1>
       <p class="subtitle">
-        Я Даниил Ломейко. Разрабатываю современные сайты и интерфейсы для бизнеса:
-        с аккуратной архитектурой, чистым кодом и вниманием к деталям.
+        Работаем с жилыми и коммерческими объектами. Выполняем плановое ТО, ремонт,
+        модернизацию и аварийный выезд по лифтам на нашем обслуживании.
       </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="#contact">Обсудить проект</a>
-        <a class="btn btn-secondary" href="https://github.com/Daniillomeyko" target="_blank" rel="noreferrer">
-          GitHub
-        </a>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contacts">Оставить заявку</a>
+        <a class="btn btn-secondary" href="#services">Смотреть услуги</a>
       </div>
-      <div class="stats">
-        <article>
-          <h3>10+</h3>
-          <p>Выполненных веб-задач</p>
+      <div class="kpi-row">
+        <article class="kpi">
+          <strong>262+</strong>
+          <span>лифтов на обслуживании</span>
         </article>
-        <article>
-          <h3>24h</h3>
-          <p>Среднее время ответа</p>
+        <article class="kpi">
+          <strong>1500+</strong>
+          <span>выполненных работ</span>
         </article>
-        <article>
-          <h3>100%</h3>
-          <p>Фокус на чистом коде</p>
+        <article class="kpi">
+          <strong>2021</strong>
+          <span>год основания компании</span>
         </article>
       </div>
     </main>
 
-    <section id="about" class="section container">
-      <h2>Обо мне</h2>
-      <p>
-        Помогаю командам и частным клиентам запускать понятные, стабильные и
-        удобные в поддержке сайты. Работаю по понятному процессу: быстрый
-        прототип, адаптивная верстка, чистый запуск.
-      </p>
-    </section>
-
-    <section id="projects" class="section container">
-      <h2>Избранные проекты</h2>
-      <div class="grid">
+    <section id="services" class="section container">
+      <div class="section-heading">
+        <p>Портфель услуг</p>
+        <h2>Комплексное сопровождение лифтов</h2>
+      </div>
+      <div class="cards-grid">
         <article class="card">
-          <h3>Бизнес-лендинг</h3>
-          <p>Страница с четкой структурой, понятным оффером и сильными CTA.</p>
+          <h3>Ремонт лифтов</h3>
+          <p>Диагностика и устранение неисправностей. Работаем с Могилевлифтмаш, ЩЛЗ, KONE, OTIS и другими брендами.</p>
+          <ul>
+            <li>Полная диагностика систем</li>
+            <li>Замена узлов и деталей</li>
+            <li>Тестирование после ремонта</li>
+          </ul>
         </article>
         <article class="card">
-          <h3>Интерфейс сервиса</h3>
-          <p>Редизайн UI с улучшенной читабельностью и навигацией.</p>
+          <h3>Плановое ТО</h3>
+          <p>Профилактика и регламентные работы, чтобы снизить риски остановок и продлить срок службы оборудования.</p>
+          <ul>
+            <li>Ежемесячные инспекции</li>
+            <li>Проверка систем безопасности</li>
+            <li>Ведение паспорта лифта</li>
+          </ul>
         </article>
         <article class="card">
-          <h3>Шаблон портфолио</h3>
-          <p>Переиспользуемый стартовый шаблон для GitHub Pages.</p>
+          <h3>Модернизация</h3>
+          <p>Обновление устаревших систем управления и узлов для повышения энергоэффективности и комфорта.</p>
+          <ul>
+            <li>Частотные преобразователи</li>
+            <li>Обновление кабин и пультов</li>
+            <li>Оптимизация энергопотребления</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Аварийный выезд</h3>
+          <p>Экстренные работы по лифтам, которые находятся на нашем техническом обслуживании.</p>
+          <ul>
+            <li>Освобождение пассажиров</li>
+            <li>Локализация неисправностей</li>
+            <li>Восстановление работоспособности</li>
+          </ul>
         </article>
       </div>
     </section>
 
-    <section id="skills" class="section container">
-      <h2>Навыки</h2>
-      <div class="chips">
-        <span>HTML5</span>
-        <span>CSS3</span>
-        <span>JavaScript</span>
-        <span>Git & GitHub</span>
-        <span>UI/UX</span>
-        <span>Оптимизация</span>
+    <section id="process" class="section container process">
+      <div class="section-heading">
+        <p>Как мы работаем</p>
+        <h2>Прозрачный инженерный процесс</h2>
+      </div>
+      <div class="timeline">
+        <article>
+          <span>01</span>
+          <h3>Заявка и аудит объекта</h3>
+          <p>Фиксируем исходные данные, тип лифта, текущие риски и приоритеты по обслуживанию.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Техническое решение</h3>
+          <p>Согласовываем перечень работ, сроки исполнения и формат отчетности по договору.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Исполнение и контроль</h3>
+          <p>Проводим работы, тестируем оборудование и передаем закрывающие документы.</p>
+        </article>
       </div>
     </section>
 
-    <section id="contact" class="section container">
-      <h2>Контакты</h2>
-      <p>Открыт к фриланс-проектам и сотрудничеству.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="mailto:daniillomeyko@gmail.com">Написать на почту</a>
-        <a class="btn btn-secondary" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+    <section id="advantages" class="section container">
+      <div class="section-heading">
+        <p>Надежность и соответствие</p>
+        <h2>Почему выбирают ООО «ЭТАЖИ»</h2>
+      </div>
+      <div class="adv-grid">
+        <article>
+          <h3>Работа по регламенту</h3>
+          <p>Соблюдаем требования безопасности и актуальные нормы эксплуатации лифтового оборудования.</p>
+        </article>
+        <article>
+          <h3>Документированная отчетность</h3>
+          <p>Акты выполненных работ и история обслуживаний доступны для внутреннего контроля заказчика.</p>
+        </article>
+        <article>
+          <h3>Фокус на предотвращении отказов</h3>
+          <p>Планово-предупредительный подход снижает аварийность и стабилизирует работу лифтового парка.</p>
+        </article>
       </div>
     </section>
 
-    <footer class="footer container">
-      <p>© <span id="year"></span> Daniil Lomeyko</p>
+    <section id="contacts" class="section container contacts">
+      <div class="section-heading">
+        <p>Контакты</p>
+        <h2>Обсудим ваш объект</h2>
+      </div>
+      <div class="contacts-grid">
+        <div class="contact-card">
+          <h3>ООО «ЭТАЖИ»</h3>
+          <p>198320, г. Санкт-Петербург, пр-кт Ленина, д. 77 литера А, этаж 4, офис 418</p>
+          <p>Пн-Пт: 9:00 - 18:00</p>
+          <p>ИНН 7807250523 · ОГРН 1217800123420</p>
+        </div>
+        <div class="contact-card">
+          <h3>Заявки</h3>
+          <p>Для коммерческих предложений и обслуживания объектов:</p>
+          <a href="mailto:Etazhi01@mail.ru">Etazhi01@mail.ru</a>
+          <p class="note">Аварийный выезд выполняется по лифтам на нашем обслуживании.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer-content">
+        <p>© <span id="year"></span> ООО «ЭТАЖИ». Обслуживание и ремонт лифтового оборудования.</p>
+      </div>
     </footer>
 
     <script src="script.js"></script>

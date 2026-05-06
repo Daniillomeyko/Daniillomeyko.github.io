@@ -1,22 +1,16 @@
 const yearElement = document.getElementById("year");
-const themeButton = document.getElementById("theme-toggle");
 const menuLinks = document.querySelectorAll(".menu a");
 const sections = document.querySelectorAll("main[id], section[id]");
-const savedTheme = localStorage.getItem("theme");
+const menuToggle = document.getElementById("menu-toggle");
+const mainMenu = document.getElementById("main-menu");
 
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
 }
 
-if (savedTheme === "light") {
-  document.body.classList.add("light");
-}
-
-if (themeButton) {
-  themeButton.addEventListener("click", () => {
-    document.body.classList.toggle("light");
-    const currentTheme = document.body.classList.contains("light") ? "light" : "dark";
-    localStorage.setItem("theme", currentTheme);
+if (menuToggle && mainMenu) {
+  menuToggle.addEventListener("click", () => {
+    mainMenu.classList.toggle("open");
   });
 }
 
@@ -38,3 +32,11 @@ const setActiveMenu = () => {
 
 window.addEventListener("scroll", setActiveMenu);
 setActiveMenu();
+
+menuLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    if (mainMenu) {
+      mainMenu.classList.remove("open");
+    }
+  });
+});
