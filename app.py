@@ -15,6 +15,7 @@ import json
 import hmac
 import re
 import time
+import gzip
 from xml.sax.saxutils import escape
 from functools import wraps
 from dotenv import load_dotenv
@@ -143,9 +144,6 @@ app.config["COMPANY_OGRN"] = os.environ.get("COMPANY_OGRN", "1217800123420")
 app.config["COMPANY_WORK_HOURS"] = os.environ.get("COMPANY_WORK_HOURS", "Пн-Пт: 9:00 - 18:00")
 app.config["YANDEX_METRIKA_ID"] = os.environ.get("YANDEX_METRIKA_ID", "").strip()
 app.config["SITE_URL"] = os.environ.get("SITE_URL", "").strip().rstrip("/")
-app.config["HERO_VIDEO_PATH"] = os.environ.get("HERO_VIDEO_PATH", "").strip()
-app.config["HERO_IMAGE_PATH"] = os.environ.get("HERO_IMAGE_PATH", "").strip()
-app.config["HERO_VIDEO_ENABLED"] = os.environ.get("HERO_VIDEO_ENABLED", "false").strip().lower() == "true"
 
 if app.config["SENTRY_DSN"]:
     if sentry_sdk and FlaskIntegration:
@@ -173,6 +171,7 @@ DEFAULT_ARTICLES = [
         "excerpt": "Практический чек-лист подготовки лифтов к зиме: что проверить заранее, чтобы снизить риск остановок и жалоб.",
         "published_at": "2026-04-22",
         "category": "Эксплуатация",
+        "image_url": "/static/uploads/articles/kak-podgotovit-lift-k-zime-1777364270.webp",
         "read_time": "9 минут",
         "content": [
             "Зимний период - это проверка качества эксплуатации лифта. Низкие температуры, влажность и рост нагрузки в пиковые часы увеличивают риск сбоев, если оборудование не подготовлено заранее.",
@@ -205,6 +204,7 @@ DEFAULT_ARTICLES = [
         "excerpt": "Разбираем, какие документы должен получать заказчик после выезда и как по ним контролировать качество обслуживания.",
         "published_at": "2026-04-15",
         "category": "Документы",
+        "image_url": "/static/uploads/articles/otchetnost-posle-servisnogo-vyezda-1777365100.webp",
         "read_time": "8 минут",
         "content": [
             "После сервисного выезда важен не только факт выполнения работ, но и качество документирования. Именно документы позволяют заказчику понимать, что сделано, почему это сделано и в каком состоянии оборудование сейчас.",
@@ -238,6 +238,7 @@ DEFAULT_ARTICLES = [
         "excerpt": "Разбираем популярные мифы о лифтах, ключевые системы безопасности и действия пассажира в нештатной ситуации.",
         "published_at": "2026-04-08",
         "category": "Безопасность",
+        "image_url": "/static/uploads/articles/kogda-nuzhna-modernizaciya-lifta-1777363782.jpeg",
         "read_time": "12 минут",
         "content": [
             "Лифтовое оборудование в жилых и коммерческих зданиях обеспечивает комфорт и безопасное перемещение людей и грузов. За безопасность на разных этапах отвечают разные участники: завод-изготовитель, поставщик, монтажная и обслуживающая организация, а также пользователь.",
@@ -445,6 +446,33 @@ def add_admin_robots_header(response):
         response.headers["Content-Security-Policy-Report-Only"] = csp_value
     else:
         response.headers["Content-Security-Policy"] = csp_value
+
+    # Сжимаем текстовые ответы, чтобы ускорить загрузку на медленных сетях.
+    should_compress = (
+        response.status_code == 200
+        and not response.direct_passthrough
+        and "gzip" in (request.headers.get("Accept-Encoding", "").lower())
+        and not response.headers.get("Content-Encoding")
+        and response.mimetype in {
+            "text/html",
+            "text/plain",
+            "text/css",
+            "application/javascript",
+            "application/json",
+            "application/xml",
+            "image/svg+xml",
+        }
+    )
+    if should_compress:
+        payload = response.get_data()
+        if payload and len(payload) >= 1024:
+            compressed = gzip.compress(payload, compresslevel=6)
+            if len(compressed) < len(payload):
+                response.set_data(compressed)
+                response.headers["Content-Encoding"] = "gzip"
+                response.headers["Content-Length"] = str(len(compressed))
+                vary_value = response.headers.get("Vary", "")
+                response.headers["Vary"] = f"{vary_value}, Accept-Encoding".strip(", ")
     return response
 
 
@@ -558,7 +586,7 @@ def remove_uploaded_article_image(image_url: str):
 
 @app.route("/robots.txt")
 def robots():
-    base_url = request.url_root.rstrip("/")
+    base_url = get_site_url()
     body = "\n".join([
         "User-agent: *",
         "Allow: /",
@@ -570,7 +598,7 @@ def robots():
 
 @app.route("/sitemap.xml")
 def sitemap():
-    base_url = request.url_root.rstrip("/")
+    base_url = get_site_url()
     app_lastmod = datetime.utcfromtimestamp(os.path.getmtime(__file__)).date().isoformat()
     static_urls = [
         ("/", "weekly", "1.0", app_lastmod),
@@ -716,40 +744,9 @@ def admin_login():
 @app.route("/")
 def home():
     logger.info("Посетитель открыл главную страницу")
-    hero_video_path = app.config.get("HERO_VIDEO_PATH", "")
-    hero_video_enabled = app.config.get("HERO_VIDEO_ENABLED", False)
-    hero_image_path = app.config.get("HERO_IMAGE_PATH", "")
-    hero_video_url = ""
-    hero_video_type = ""
-    hero_image_url = ""
-
-    if hero_image_path:
-        normalized_image_path = hero_image_path.lstrip("/")
-        if normalized_image_path.startswith(("http://", "https://")):
-            hero_image_url = normalized_image_path
-        else:
-            hero_image_url = url_for("static", filename=normalized_image_path)
-    if hero_video_enabled and hero_video_path:
-        normalized_path = hero_video_path.lstrip("/")
-        if normalized_path.startswith(("http://", "https://")):
-            hero_video_url = normalized_path
-        else:
-            hero_video_url = url_for("static", filename=normalized_path)
-
-        extension = os.path.splitext(normalized_path.lower())[1]
-        if extension == ".webm":
-            hero_video_type = "video/webm"
-        elif extension == ".mov":
-            hero_video_type = ""
-        else:
-            hero_video_type = "video/mp4"
-
     return render_template(
         get_public_template("home"),
-        current_year=datetime.now().year,
-        hero_video_url=hero_video_url,
-        hero_video_type=hero_video_type,
-        hero_image_url=hero_image_url,
+        current_year=datetime.now().year
     )
 
 

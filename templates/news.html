@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{% block title %}Новости - {{ config.COMPANY_NAME }}{% endblock %}
+{% block title %}Блог - {{ config.COMPANY_NAME }}{% endblock %}
 {% block meta_description %}Колонка статей {{ config.COMPANY_NAME }}: эксплуатация, обслуживание и ремонт лифтового оборудования в Санкт-Петербурге и Ленинградской области.{% endblock %}
 {% block meta_keywords %}статьи про лифты, обслуживание лифтов, эксплуатация лифтов, безопасность лифтов, ремонт лифтов, блог лифтовой компании{% endblock %}
-{% block og_title %}Новости {{ config.COMPANY_NAME }}{% endblock %}
+{% block og_title %}Блог {{ config.COMPANY_NAME }}{% endblock %}
 {% block og_description %}Практические материалы по обслуживанию и эксплуатации лифтового оборудования.{% endblock %}
-{% block twitter_title %}Новости {{ config.COMPANY_NAME }}{% endblock %}
+{% block twitter_title %}Блог {{ config.COMPANY_NAME }}{% endblock %}
 {% block twitter_description %}Полезные статьи для управляющих компаний, ТСЖ и владельцев объектов.{% endblock %}
 
 {% block extra_css %}
@@ -15,10 +15,20 @@
 {% block content %}
 <section class="news-hero">
     <div class="container">
-        <h1 class="hero-main-title news-hero-blog-title">БЛОГ</h1>
+        <h1 class="hero-main-title news-hero-blog-title">Блог</h1>
         <p class="hero-lead">Практические материалы по эксплуатации, обслуживанию и модернизации лифтового оборудования.</p>
     </div>
 </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "Блог {{ config.COMPANY_NAME }}",
+  "url": "{{ abs_url(request.path) }}",
+  "description": "Практические материалы по эксплуатации, обслуживанию и модернизации лифтового оборудования."
+}
+</script>
 
 <section class="news-list-section">
     <div class="container">
@@ -31,48 +41,8 @@
         </div>
         {% endif %}
 
-        {% if articles %}
-        <a href="{{ url_for('news_article', slug=articles[0].slug) }}" class="news-featured-card-link animate-on-scroll" data-category="{{ articles[0].category }}">
-            <article class="news-featured-card ui-card news-theme-{{ articles[0].category|lower|replace(' ', '-') }}">
-                <div class="news-card-cover">
-                    {% if articles[0].image_url %}
-                    <img src="{{ articles[0].image_url }}" alt="{{ articles[0].title }}" class="news-cover-image js-fallback-image" decoding="async" fetchpriority="high">
-                        {% set category_key = articles[0].category|lower %}
-                        {% if "безопас" in category_key %}
-                        <i class="fas fa-shield-alt"></i>
-                        {% elif "эксплуата" in category_key %}
-                        <i class="fas fa-cogs"></i>
-                        {% elif "документ" in category_key %}
-                        <i class="fas fa-file-alt"></i>
-                        {% else %}
-                        <i class="fas fa-newspaper"></i>
-                        {% endif %}
-                    {% else %}
-                        {% set category_key = articles[0].category|lower %}
-                        {% if "безопас" in category_key %}
-                        <i class="fas fa-shield-alt"></i>
-                        {% elif "эксплуата" in category_key %}
-                        <i class="fas fa-cogs"></i>
-                        {% elif "документ" in category_key %}
-                        <i class="fas fa-file-alt"></i>
-                        {% else %}
-                        <i class="fas fa-newspaper"></i>
-                        {% endif %}
-                    {% endif %}
-                </div>
-                <div class="news-featured-meta">
-                    <span class="news-featured-chip">{{ articles[0].category }}</span>
-                    <span><i class="fas fa-calendar-alt"></i> {{ articles[0].published_at }}</span>
-                </div>
-                <h2 class="news-featured-title">{{ articles[0].title }}</h2>
-                <p class="news-featured-excerpt">{{ articles[0].excerpt }}</p>
-                <span class="news-link">Читать статью <i class="fas fa-arrow-right"></i></span>
-            </article>
-        </a>
-        {% endif %}
-
         <div class="news-grid">
-            {% for article in articles[1:] %}
+            {% for article in articles %}
             <a href="{{ url_for('news_article', slug=article.slug) }}" class="news-card-link animate-on-scroll" data-category="{{ article.category }}">
             <article class="news-card ui-card news-theme-{{ article.category|lower|replace(' ', '-') }}">
                 <div class="news-card-cover">

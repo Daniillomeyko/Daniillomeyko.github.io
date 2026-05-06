@@ -28,11 +28,11 @@
         <form method="POST" action="/contacts" class="hero-contact-form">
             <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
             <div class="hero-contact-grid">
-                <input type="text" name="name" placeholder="Ваше имя *" required minlength="2" maxlength="80" class="form-control hero-contact-input">
-                <input type="email" name="email" placeholder="Email *" required maxlength="120" class="form-control hero-contact-input">
-                <input type="tel" name="phone" placeholder="Телефон" maxlength="25" class="form-control hero-contact-input">
+                <input type="text" name="name" placeholder="Ваше имя *" required minlength="2" maxlength="80" autocomplete="name" class="form-control hero-contact-input">
+                <input type="email" name="email" placeholder="Email *" required maxlength="120" autocomplete="email" class="form-control hero-contact-input">
+                <input type="tel" name="phone" placeholder="Телефон" maxlength="25" autocomplete="tel" inputmode="tel" class="form-control hero-contact-input">
             </div>
-            <textarea name="message" placeholder="Кратко опишите задачу *" required minlength="10" maxlength="4000" class="form-control form-textarea hero-contact-textarea"></textarea>
+            <textarea name="message" placeholder="Кратко опишите задачу *" required minlength="10" maxlength="4000" autocomplete="off" class="form-control form-textarea hero-contact-textarea"></textarea>
             <button type="submit" class="btn hero-contact-submit">
                 <i class="fas fa-paper-plane"></i> Отправить заявку
             </button>
@@ -40,6 +40,33 @@
     </div>
     </div>
 </section>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "name": "Контакты {{ config.COMPANY_NAME }}",
+  "url": "{{ abs_url(request.path) }}",
+  "about": {
+    "@type": "LocalBusiness",
+    "name": "{{ config.COMPANY_NAME }}",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "{{ config.COMPANY_ADDRESS }}",
+      "addressLocality": "{{ config.COMPANY_CITY }}",
+      "addressCountry": "RU"
+    }
+  },
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "{{ config.COMPANY_NAME }}",
+    "identifier": [
+      "ИНН {{ config.COMPANY_INN }}",
+      "ОГРН {{ config.COMPANY_OGRN }}"
+    ]
+  }
+}
+</script>
 
 <!-- Контакты и форма -->
 <section class="contacts-main">

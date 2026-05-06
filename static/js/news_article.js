@@ -12,6 +12,7 @@
   const copyBtn = document.getElementById("copyArticleLink");
   const copyMsg = document.getElementById("copyArticleMessage");
   if (copyBtn && copyMsg) {
+    const defaultCopyText = copyMsg.textContent;
     copyBtn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(window.location.href);
@@ -19,6 +20,9 @@
       } catch (_error) {
         copyMsg.textContent = "Не удалось скопировать ссылку.";
       }
+      window.setTimeout(() => {
+        copyMsg.textContent = defaultCopyText;
+      }, 2500);
     });
   }
 

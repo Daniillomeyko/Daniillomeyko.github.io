@@ -477,6 +477,12 @@
     background: linear-gradient(135deg, #3e71ea, #2fd3c1);
 }
 
+.news-side-cta-light {
+    background: #f5f8ff;
+    color: #2f4fa4;
+    border: 1px solid rgba(91, 140, 255, 0.22);
+}
+
 .news-toc {
     padding: 14px 16px;
     margin-bottom: 20px;

@@ -1,1 +1,0 @@
-"""ООО "ЭТАЖИ" - Сайт компании по ремонту и обслуживанию лифтовFlask веб-приложение с админ-панелью и базой данных"""from flask import Flask, render_template, request, redirect, url_for, flash, session, abort, send_from_directoryfrom flask_sqlalchemy import SQLAlchemyfrom flask_mail import Mail, Messagefrom datetime import datetime, timedeltaimport os

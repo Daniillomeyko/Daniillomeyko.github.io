@@ -68,13 +68,4 @@
     });
   }
 
-  document.querySelectorAll(".js-about-image").forEach((img) => {
-    img.addEventListener("error", () => {
-      const wrap = img.closest(".about-image");
-      if (wrap) {
-        wrap.classList.add("is-broken");
-      }
-      img.remove();
-    });
-  });
 })();
