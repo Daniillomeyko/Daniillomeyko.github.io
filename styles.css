@@ -1,19 +1,23 @@
 :root {
   --bg: #0b1020;
+  --bg-soft: #101735;
   --card: #151d35;
   --text: #edf2ff;
   --muted: #a9b4d0;
   --accent: #6ea8fe;
   --accent-2: #9a7bff;
+  --line: #2b3561;
 }
 
 body.light {
   --bg: #f5f8ff;
+  --bg-soft: #eef3ff;
   --card: #ffffff;
   --text: #101828;
   --muted: #475467;
   --accent: #246bff;
   --accent-2: #7a5cff;
+  --line: #d7e1ff;
 }
 
 * {
@@ -23,9 +27,10 @@ body.light {
 body {
   margin: 0;
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
-  background: radial-gradient(circle at top right, #202d56 0%, var(--bg) 45%);
+  background: radial-gradient(circle at top right, #202d56 0%, var(--bg) 45%), var(--bg);
   color: var(--text);
   min-height: 100vh;
+  line-height: 1.5;
 }
 
 .container {
@@ -35,27 +40,52 @@ body {
 
 .header {
   padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--bg) 86%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--line) 65%, transparent);
+  z-index: 10;
 }
 
 .nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 1rem;
 }
 
 .logo {
   text-decoration: none;
-  color: var(--text);
   font-weight: 800;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
   background: linear-gradient(135deg, var(--accent), var(--accent-2));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
+.menu {
+  display: flex;
+  gap: 0.8rem;
+  margin-left: auto;
+}
+
+.menu a {
+  color: var(--muted);
+  text-decoration: none;
+  padding: 0.35rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.menu a:hover,
+.menu a.active {
+  color: var(--text);
+  background: var(--bg-soft);
+}
+
 .theme-toggle {
-  border: 1px solid #2a355f;
+  border: 1px solid var(--line);
   background: transparent;
   color: var(--text);
   border-radius: 999px;
@@ -64,7 +94,7 @@ body {
 }
 
 .hero {
-  padding: 8vh 0 12vh;
+  padding: 10vh 0 8vh;
 }
 
 .tag {
@@ -72,8 +102,8 @@ body {
   margin: 0;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: #1f2b50;
-  color: #c9d6ff;
+  background: var(--bg-soft);
+  color: var(--accent);
   font-size: 0.82rem;
 }
 
@@ -89,6 +119,31 @@ h1 {
   color: var(--muted);
   font-size: 1.1rem;
   max-width: 54ch;
+}
+
+.stats {
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.stats article {
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  padding: 0.9rem;
+  background: color-mix(in srgb, var(--card) 76%, transparent);
+}
+
+.stats h3 {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.stats p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .actions {
@@ -117,11 +172,82 @@ h1 {
 
 .btn-secondary {
   color: var(--text);
-  border: 1px solid #33437a;
+  border: 1px solid var(--line);
+}
+
+.section {
+  padding: 2.8rem 0;
+}
+
+.section h2 {
+  margin: 0 0 0.8rem;
+  font-size: 1.65rem;
+}
+
+.section p {
+  margin: 0;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.card {
+  background: color-mix(in srgb, var(--card) 80%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+
+.card h3 {
+  margin: 0 0 0.45rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.chips span {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.35rem 0.7rem;
+  font-size: 0.9rem;
+  color: var(--muted);
 }
 
 .footer {
-  padding-bottom: 2rem;
+  padding: 3.5rem 0 2rem;
   color: var(--muted);
   font-size: 0.92rem;
+  border-top: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+}
+
+@media (max-width: 900px) {
+  .grid,
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .menu {
+    display: none;
+  }
+
+  .hero {
+    padding-top: 8vh;
+  }
 }

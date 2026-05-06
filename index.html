@@ -19,27 +19,93 @@
   <body>
     <header class="header">
       <div class="container nav">
-        <a href="#" class="logo">DL</a>
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">
-          Toggle theme
-        </button>
+        <a href="#home" class="logo">Daniil Lomeyko</a>
+        <nav class="menu">
+          <a href="#about">About</a>
+          <a href="#projects">Projects</a>
+          <a href="#skills">Skills</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle theme">Theme</button>
       </div>
     </header>
 
-    <main class="hero container">
-      <p class="tag">Portfolio</p>
-      <h1>Building clear, fast, and beautiful web products.</h1>
+    <main id="home" class="hero container">
+      <p class="tag">Web Developer Portfolio</p>
+      <h1>Designing practical websites that feel premium and load fast.</h1>
       <p class="subtitle">
-        I am Daniil. I create practical web experiences with clean code and strong
-        visual style.
+        I am Daniil Lomeyko. I build modern, business-focused web products with
+        clean architecture and attention to detail.
       </p>
       <div class="actions">
-        <a class="btn btn-primary" href="mailto:hello@example.com">Contact me</a>
-        <a class="btn btn-secondary" href="https://github.com/" target="_blank" rel="noreferrer">
-          GitHub
+        <a class="btn btn-primary" href="#contact">Start a project</a>
+        <a class="btn btn-secondary" href="https://github.com/Daniillomeyko" target="_blank" rel="noreferrer">
+          View GitHub
         </a>
       </div>
+      <div class="stats">
+        <article>
+          <h3>10+</h3>
+          <p>Completed web tasks</p>
+        </article>
+        <article>
+          <h3>24h</h3>
+          <p>Average reply time</p>
+        </article>
+        <article>
+          <h3>100%</h3>
+          <p>Focus on clean code</p>
+        </article>
+      </div>
     </main>
+
+    <section id="about" class="section container">
+      <h2>About</h2>
+      <p>
+        I help small teams and private clients launch websites that are clear,
+        stable, and easy to support. My workflow includes rapid prototyping,
+        responsive implementation, and clean deployment.
+      </p>
+    </section>
+
+    <section id="projects" class="section container">
+      <h2>Featured Projects</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Business Landing</h3>
+          <p>Conversion-oriented page with clear messaging and CTA hierarchy.</p>
+        </article>
+        <article class="card">
+          <h3>Service Platform UI</h3>
+          <p>Interface refinement with improved readability and navigation.</p>
+        </article>
+        <article class="card">
+          <h3>Portfolio Framework</h3>
+          <p>Reusable static starter for fast GitHub Pages deployment.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="skills" class="section container">
+      <h2>Skills</h2>
+      <div class="chips">
+        <span>HTML5</span>
+        <span>CSS3</span>
+        <span>JavaScript</span>
+        <span>Git & GitHub</span>
+        <span>UI/UX Basics</span>
+        <span>Performance</span>
+      </div>
+    </section>
+
+    <section id="contact" class="section container">
+      <h2>Contact</h2>
+      <p>Open for freelance projects and collaborations.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="mailto:daniillomeyko@gmail.com">Email me</a>
+        <a class="btn btn-secondary" href="https://t.me/" target="_blank" rel="noreferrer">Telegram</a>
+      </div>
+    </section>
 
     <footer class="footer container">
       <p>© <span id="year"></span> Daniil Lomeyko</p>
